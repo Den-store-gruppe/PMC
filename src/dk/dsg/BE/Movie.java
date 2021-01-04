@@ -1,4 +1,4 @@
-package dk.dsg.be;
+package dk.dsg.BE;
 
 public class Movie {
 }
