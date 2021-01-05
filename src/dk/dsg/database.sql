@@ -18,3 +18,5 @@ CREATE TABLE MovieCat (
     FOREIGN KEY (categoryId) REFERENCES Category(id),
     FOREIGN KEY (movieId) REFERENCES Movie(id)
 );
+
+INSERT INTO Category (catName) VALUES ('Action'),('Adventure'),('Comedy'),('Crime'),('Drama'),('Historical'),('Horror'),('Musical'),('Science Fiction'),('War'),('Western');
