@@ -1,11 +1,11 @@
 package dk.dsg.BE;
 
 public class Category {
-    private final int ID;
+    private final int id;
     private String catName;
 
     public int getID() {
-        return ID;
+        return id;
     }
 
     public String getCatName() {
@@ -17,7 +17,7 @@ public class Category {
     }
 
     public Category(int id, String catName) {
-        ID = id;
+        id = id;
         this.catName = catName;
     }
     

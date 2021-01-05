@@ -4,14 +4,14 @@ import java.util.Date;
 
 public class Movie {
 
-    private final int ID;
+    private final int id;
     private String movieName;
     private final int rating;
     private String filePath;
     private Date lastView;
 
     public Movie(int id, String movieName, int rating, String filePath, Date lastView) {
-        ID = id;
+        this.id = id;
         this.movieName = movieName;
         this.rating = rating;
         this.filePath = filePath;
@@ -19,7 +19,7 @@ public class Movie {
     }
 
     public int getID() {
-        return ID;
+        return id;
     }
 
     public String getMovieName() {
