@@ -17,7 +17,7 @@ public class Category {
     }
 
     public Category(int id, String catName) {
-        id = id;
+        this.id = id;
         this.catName = catName;
     }
     
