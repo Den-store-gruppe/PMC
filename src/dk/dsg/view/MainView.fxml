@@ -1,14 +1,55 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="dk.dsg.view.MainViewController"
-            prefHeight="400.0" prefWidth="600.0">
-
+<AnchorPane prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dk.dsg.view.MainViewController">
+   <children>
+      <TableView fx:id="movieTable" prefHeight="600.0" prefWidth="250.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="25.0">
+        <columns>
+          <TableColumn fx:id="movieTableName" prefWidth="250.0" text="Name" />
+        </columns>
+      </TableView>
+      <AnchorPane layoutX="250.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="250.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <Label fx:id="movieName" alignment="CENTER" layoutX="198.0" layoutY="27.0" text="Movie Name" textAlignment="CENTER" AnchorPane.leftAnchor="12.0" AnchorPane.rightAnchor="12.0" AnchorPane.topAnchor="12.0">
+            <font>
+               <Font name="Arial Bold" size="28.0" />
+            </font>
+         </Label>
+         <Label layoutX="15.0" layoutY="147.0" text="Rating:" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="147.0">
+            <font>
+               <Font name="Arial Bold" size="18.0" />
+            </font>
+         </Label>
+         <Label layoutX="13.0" layoutY="117.0" text="Last seen:" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="122.0">
+            <font>
+               <Font name="Arial Bold" size="18.0" />
+            </font>
+         </Label>
+         <Label layoutX="18.0" layoutY="171.0" text="File path:" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="171.0">
+            <font>
+               <Font name="Arial Bold" size="18.0" />
+            </font>
+         </Label>
+         <Label fx:id="dateLabel" layoutX="124.0" layoutY="125.0" text="DATE NOT FOUND" AnchorPane.leftAnchor="124.0" AnchorPane.topAnchor="125.0" />
+         <Label fx:id="ratingLabel" layoutX="124.0" layoutY="150.0" text="RATING NOT FOUND" AnchorPane.leftAnchor="124.0" AnchorPane.topAnchor="150.0" />
+         <Label fx:id="filePathLabel" layoutX="124.0" layoutY="174.0" text="/PATH/NOT/FOUND" AnchorPane.leftAnchor="124.0" AnchorPane.topAnchor="174.0" />
+         <Button fx:id="createMovie" layoutX="421.0" layoutY="535.0" mnemonicParsing="false" text="New Movie" AnchorPane.rightAnchor="30.0" />
+         <Button fx:id="editMovie" layoutX="131.0" layoutY="535.0" mnemonicParsing="false" text="Edit Movie" AnchorPane.leftAnchor="130.0" />
+         <Label layoutX="15.0" layoutY="205.0" text="Categories:" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="194.0">
+            <font>
+               <Font name="Arial Bold" size="18.0" />
+            </font>
+         </Label>
+         <Label fx:id="filePathLabel1" layoutX="121.0" layoutY="197.0" text="CATEGORIES, NOT, FOUND" AnchorPane.leftAnchor="124.0" AnchorPane.topAnchor="197.0" />
+         <Button fx:id="deleteMovie" layoutX="226.0" layoutY="535.0" mnemonicParsing="false" text="Delete Movie" AnchorPane.leftAnchor="230.0" />
+         <Button fx:id="playMovie" layoutX="29.0" layoutY="535.0" mnemonicParsing="false" text="Play Movie" AnchorPane.leftAnchor="30.0" />
+      </AnchorPane>
+      <TextField prefHeight="25.0" prefWidth="250.0" promptText="Search..." />
+   </children>
 </AnchorPane>
