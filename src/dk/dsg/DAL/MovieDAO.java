@@ -1,13 +1,9 @@
 package dk.dsg.DAL;
 
-import com.microsoft.sqlserver.jdbc.SQLServerException;
 import dk.dsg.BE.Movie;
 
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -41,5 +37,21 @@ public class MovieDAO {
         resultSet.close();
 
         return movies;
+    }
+
+    public void addMovie(Movie movie) throws SQLException {
+        String query = "INSERT INTO Movie(id, movieName, rating, filePath, lastView) VALUES (?,?,?,?,?)";
+        try (Connection connection = databaseConnector.getConnection()) {
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setInt(1, movie.getID());
+            preparedStatement.setString(2, movie.getMovieName());
+            preparedStatement.setInt(3, movie.getRating());
+            preparedStatement.setString(4, movie.getFilePath());
+            preparedStatement.setDate(5, (Date) movie.getLastView());
+            preparedStatement.addBatch();
+            preparedStatement.executeBatch();
+        } catch (SQLException ex) {
+            System.out.println(ex);
+        }
     }
 }
