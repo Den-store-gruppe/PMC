@@ -1,5 +1,6 @@
 package dk.dsg.DAL;
 
+import com.sun.scenario.effect.impl.prism.PrReflectionPeer;
 import dk.dsg.BE.Movie;
 
 
@@ -65,6 +66,17 @@ public class MovieDAO {
             preparedStatement.setInt(4, movie.getID());
             preparedStatement.setDate(5, (Date) movie.getLastView());
             preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void deleteMovie(Movie movie) {
+        String query = "DELETE from Movie WHERE movieName = ?";
+        try (Connection connection = databaseConnector.getConnection()) {
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setString(1, movie.getMovieName());
+            preparedStatement.execute();
         } catch (SQLException e) {
             e.printStackTrace();
         }
