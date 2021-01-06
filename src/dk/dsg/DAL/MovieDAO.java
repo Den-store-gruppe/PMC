@@ -64,6 +64,7 @@ public class MovieDAO {
             preparedStatement.setString(3, movie.getFilePath());
             preparedStatement.setInt(4, movie.getID());
             preparedStatement.setDate(5, (Date) movie.getLastView());
+            preparedStatement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
         }
