@@ -39,7 +39,7 @@ public class MovieDAO {
         return movies;
     }
 
-    public void addMovie(Movie movie) throws SQLException {
+    public void addMovie(Movie movie) {
         String query = "INSERT INTO Movie(id, movieName, rating, filePath, lastView) VALUES (?,?,?,?,?)";
         try (Connection connection = databaseConnector.getConnection()) {
             PreparedStatement preparedStatement = connection.prepareStatement(query);
@@ -50,8 +50,8 @@ public class MovieDAO {
             preparedStatement.setDate(5, (Date) movie.getLastView());
             preparedStatement.addBatch();
             preparedStatement.executeBatch();
-        } catch (SQLException ex) {
-            System.out.println(ex);
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
     }
 }
