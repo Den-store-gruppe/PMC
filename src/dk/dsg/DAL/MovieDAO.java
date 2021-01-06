@@ -54,4 +54,18 @@ public class MovieDAO {
             e.printStackTrace();
         }
     }
+
+    public void updateMovie(Movie movie) {
+        String query = "UPDATE Movie SET movieName = ?, rating = ?, filePath = ?, lastView = ? WHERE id = ?";
+        try (Connection connection = databaseConnector.getConnection()) {
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setString(1, movie.getMovieName());
+            preparedStatement.setInt(2, movie.getRating());
+            preparedStatement.setString(3, movie.getFilePath());
+            preparedStatement.setInt(4, movie.getID());
+            preparedStatement.setDate(5, (Date) movie.getLastView());
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 }
