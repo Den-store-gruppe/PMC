@@ -42,6 +42,12 @@ public class NewMovieController implements Initializable {
             String[] args = selectedFile.getAbsolutePath().split("\\\\");
             String name = args[args.length - 1].substring(0, args[args.length - 1].length() - 4);
             movieName.setText(name);
+        } else {
+            //TODO: Handle the missing the error
         }
+    }
+
+    public void SubmitMovie(ActionEvent actionEvent) {
+
     }
 }
