@@ -7,6 +7,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 
 import java.io.File;
 import java.net.URL;
@@ -48,6 +49,20 @@ public class NewMovieController implements Initializable {
     }
 
     public void SubmitMovie(ActionEvent actionEvent) {
+        String title = movieName.getText();
+        String path = movieSelect.getText();
+        String category = movieCategory.getSelectionModel().getSelectedItem();
 
+        if(category.isEmpty()){
+            //TODO: handle missing category
+        }
+
+
+
+    }
+
+    public void CancelNewMovie(ActionEvent actionEvent) {
+        Stage stage = (Stage) movieCancel.getScene().getWindow();
+        stage.close();
     }
 }
