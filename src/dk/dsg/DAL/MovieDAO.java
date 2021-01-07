@@ -51,6 +51,7 @@ public class MovieDAO {
             preparedStatement.addBatch();
             preparedStatement.executeBatch();
         } catch (SQLException e) {
+            //TODO: give user the warning
             e.printStackTrace();
         }
     }
@@ -66,6 +67,7 @@ public class MovieDAO {
             preparedStatement.setDate(5, (Date) movie.getLastView());
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
+            //TODO: give user the warning
             e.printStackTrace();
         }
     }
@@ -77,6 +79,7 @@ public class MovieDAO {
             preparedStatement.setString(1, movie.getMovieName());
             preparedStatement.execute();
         } catch (SQLException e) {
+            //TODO: give user the warning
             e.printStackTrace();
         }
     }

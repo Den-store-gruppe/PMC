@@ -52,6 +52,7 @@ public class MainViewController implements Initializable {
             });
 
         } catch (SQLException e) {
+            //TODO: give user the warning
             e.printStackTrace();
         }
     }
@@ -75,6 +76,7 @@ public class MainViewController implements Initializable {
             stage.setScene(scene);
             stage.show();
         } catch (IOException e) {
+            //TODO: give user the warning
             e.printStackTrace();
         }
     }

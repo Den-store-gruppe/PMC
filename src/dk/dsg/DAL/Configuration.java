@@ -22,6 +22,7 @@ public class Configuration {
                 configValues.put(values[0], values[1]);
             }
         } catch (IOException e) {
+            //TODO: give user the warning
             e.printStackTrace();
         }
     }
