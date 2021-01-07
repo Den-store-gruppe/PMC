@@ -1,6 +1,7 @@
 package dk.dsg.gui.controller;
 
 import dk.dsg.BE.Movie;
+import dk.dsg.gui.model.MovieModel;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -15,9 +16,12 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.ResourceBundle;
 
 public class MainViewController implements Initializable {
+
+    private MovieModel movieModel;
 
     private final String[] movieCategories = {"Action","Adventure","Comedy","Crime","Drama","Historical","Horror","Musical","Science Fiction","War",    "Western"};
 
@@ -36,7 +40,16 @@ public class MainViewController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        try {
+            movieTable.setItems(movieModel.getAllMovies());
+            movieTableName.setCellValueFactory(celldata -> celldata.getValue().movieNameProperty());
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 
+    public MainViewController(){
+        movieModel = new MovieModel();
     }
 
     public void CreateNewMovie(ActionEvent actionEvent) {
