@@ -41,14 +41,13 @@ public class MovieDAO {
     }
 
     public void addMovie(Movie movie) {
-        String query = "INSERT INTO Movie(id, movieName, rating, filePath, lastView) VALUES (?,?,?,?,?)";
+        String query = "INSERT INTO Movie(movieName, rating, filePath, lastView) VALUES (?,?,?,?)";
         try (Connection connection = databaseConnector.getConnection()) {
             PreparedStatement preparedStatement = connection.prepareStatement(query);
-            preparedStatement.setInt(1, movie.getID());
-            preparedStatement.setString(2, movie.getMovieName());
-            preparedStatement.setInt(3, movie.getRating());
-            preparedStatement.setString(4, movie.getFilePath());
-            preparedStatement.setDate(5, (Date) movie.getLastView());
+            preparedStatement.setString(1, movie.getMovieName());
+            preparedStatement.setInt(2, movie.getRating());
+            preparedStatement.setString(3, movie.getFilePath());
+            preparedStatement.setDate(4, (Date) movie.getLastView());
             preparedStatement.addBatch();
             preparedStatement.executeBatch();
         } catch (SQLException e) {
