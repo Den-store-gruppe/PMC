@@ -40,7 +40,7 @@ public class MainViewController implements Initializable {
     @FXML private Label ratingLabel;
     @FXML private Label filePathLabel;
 
-    private Movie selectedMovie;
+    private Movie selectedMovie = null;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -60,10 +60,15 @@ public class MainViewController implements Initializable {
     }
 
     private void updateInformation() {
-        movieName.setText(selectedMovie.getMovieName());
-        dateLabel.setText(selectedMovie.getLastView().toString());
-        ratingLabel.setText(String.valueOf(selectedMovie.getRating()));
-        filePathLabel.setText(selectedMovie.getFilePath());
+
+        if(selectedMovie != null){
+            movieName.setText(selectedMovie.getMovieName());
+            dateLabel.setText(selectedMovie.getLastView().toString());
+            ratingLabel.setText(String.valueOf(selectedMovie.getRating()));
+            filePathLabel.setText(selectedMovie.getFilePath());
+        }else{
+            //TODO: handle no movie selected
+        }
     }
 
     public MainViewController(){
@@ -87,12 +92,25 @@ public class MainViewController implements Initializable {
     }
 
     public void playMovie(ActionEvent actionEvent) {
-        Desktop desktop = Desktop.getDesktop();
-        try {
-            desktop.open(new File(selectedMovie.getFilePath()));
-        } catch (IOException e) {
-            //TODO: show error
-            e.printStackTrace();
+        if(selectedMovie != null){
+            Desktop desktop = Desktop.getDesktop();
+            try {
+                desktop.open(new File(selectedMovie.getFilePath()));
+            } catch (IOException e) {
+                //TODO: show error
+                e.printStackTrace();
+            }
+        }
+    }
+
+    public void deleteMovie(ActionEvent actionEvent) {
+        if(selectedMovie != null){
+            movieModel.deleteMovie(selectedMovie);
+            try {
+                movieTable.setItems(movieModel.getAllMovies());
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
     }
 }
