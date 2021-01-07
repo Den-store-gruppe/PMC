@@ -9,7 +9,7 @@ import java.util.List;
 public class MovieManager {
     private MovieDAO movieDAO;
 
-    public MovieManager() throws Exception {
+    public MovieManager() {
         movieDAO = new MovieDAO();
     }
 
