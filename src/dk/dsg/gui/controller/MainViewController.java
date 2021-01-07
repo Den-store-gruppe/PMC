@@ -53,6 +53,11 @@ public class MainViewController implements Initializable {
                 updateInformation();
             });
 
+            if(movieTable.getItems().size() != 0){
+                movieTable.getSelectionModel().select(0);
+                updateInformation();
+            }
+
         } catch (SQLException e) {
             //TODO: give user the warning
             e.printStackTrace();
@@ -70,7 +75,8 @@ public class MainViewController implements Initializable {
 
             ratingLabel.setText(rating);
         }else{
-            //TODO: handle no movie selected
+            movieTable.getSelectionModel().select(0);
+            updateInformation();
         }
     }
 
