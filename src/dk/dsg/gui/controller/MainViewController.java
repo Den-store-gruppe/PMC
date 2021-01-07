@@ -38,21 +38,36 @@ public class MainViewController implements Initializable {
     @FXML private Label ratingLabel;
     @FXML private Label filePathLabel;
 
+    private Movie selectedMovie;
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         try {
             movieTable.setItems(movieModel.getAllMovies());
             movieTableName.setCellValueFactory(celldata -> celldata.getValue().movieNameProperty());
+
+            movieTable.getSelectionModel().selectedItemProperty().addListener((observableValue, oldValue, newValue)->{
+                selectedMovie = newValue;
+                updateInformation();
+            });
+
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+
+    private void updateInformation() {
+        movieName.setText(selectedMovie.getMovieName());
+        dateLabel.setText(selectedMovie.getLastView().toString());
+        ratingLabel.setText(String.valueOf(selectedMovie.getRating()));
+        filePathLabel.setText(selectedMovie.getFilePath());
     }
 
     public MainViewController(){
         movieModel = new MovieModel();
     }
 
-    public void CreateNewMovie(ActionEvent actionEvent) {
+    public void createNewMovie(ActionEvent actionEvent) {
         try {
             Parent root = FXMLLoader.load(getClass().getResource("../view/NewMovie.fxml"));
             Stage stage = new Stage();

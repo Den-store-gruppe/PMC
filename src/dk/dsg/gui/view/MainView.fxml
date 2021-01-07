@@ -39,7 +39,7 @@
          <Label fx:id="dateLabel" layoutX="124.0" layoutY="125.0" text="DATE NOT FOUND" AnchorPane.leftAnchor="124.0" AnchorPane.topAnchor="125.0" />
          <Label fx:id="ratingLabel" layoutX="124.0" layoutY="150.0" text="RATING NOT FOUND" AnchorPane.leftAnchor="124.0" AnchorPane.topAnchor="150.0" />
          <Label fx:id="filePathLabel" layoutX="124.0" layoutY="174.0" text="/PATH/NOT/FOUND" AnchorPane.leftAnchor="124.0" AnchorPane.topAnchor="174.0" />
-         <Button fx:id="createMovie" layoutX="421.0" layoutY="535.0" mnemonicParsing="false" onAction="#CreateNewMovie" text="New Movie" AnchorPane.rightAnchor="30.0" />
+         <Button fx:id="createMovie" layoutX="421.0" layoutY="535.0" mnemonicParsing="false" onAction="#createNewMovie" text="New Movie" AnchorPane.rightAnchor="30.0" />
          <Button fx:id="editMovie" layoutX="131.0" layoutY="535.0" mnemonicParsing="false" text="Edit Movie" AnchorPane.leftAnchor="130.0" />
          <Label layoutX="15.0" layoutY="205.0" text="Categories:" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="194.0">
             <font>
