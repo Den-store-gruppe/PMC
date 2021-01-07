@@ -76,9 +76,12 @@ public class MainViewController implements Initializable {
             Stage stage = new Stage();
             Scene scene = new Scene(root);
             stage.setScene(scene);
-            stage.show();
+            stage.showAndWait();
+            movieTable.setItems(movieModel.getAllMovies());
         } catch (IOException e) {
             //TODO: give user the warning
+            e.printStackTrace();
+        } catch (SQLException e) {
             e.printStackTrace();
         }
     }
