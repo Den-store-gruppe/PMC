@@ -14,6 +14,8 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.stage.Stage;
 
+import java.awt.*;
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
@@ -77,6 +79,16 @@ public class MainViewController implements Initializable {
             stage.show();
         } catch (IOException e) {
             //TODO: give user the warning
+            e.printStackTrace();
+        }
+    }
+
+    public void playMovie(ActionEvent actionEvent) {
+        Desktop desktop = Desktop.getDesktop();
+        try {
+            desktop.open(new File(selectedMovie.getFilePath()));
+        } catch (IOException e) {
+            //TODO: show error
             e.printStackTrace();
         }
     }
