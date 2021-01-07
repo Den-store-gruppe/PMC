@@ -64,8 +64,11 @@ public class MainViewController implements Initializable {
         if(selectedMovie != null){
             movieName.setText(selectedMovie.getMovieName());
             dateLabel.setText(selectedMovie.getLastView().toString());
-            ratingLabel.setText(String.valueOf(selectedMovie.getRating()));
             filePathLabel.setText(selectedMovie.getFilePath());
+
+            String rating = (selectedMovie.getRating() != -1) ? String.valueOf(selectedMovie.getRating()) : "Not rated yet";
+
+            ratingLabel.setText(rating);
         }else{
             //TODO: handle no movie selected
         }
@@ -83,10 +86,8 @@ public class MainViewController implements Initializable {
             stage.setScene(scene);
             stage.showAndWait();
             movieTable.setItems(movieModel.getAllMovies());
-        } catch (IOException e) {
+        } catch (IOException | SQLException e) {
             //TODO: give user the warning
-            e.printStackTrace();
-        } catch (SQLException e) {
             e.printStackTrace();
         }
     }
