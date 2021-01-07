@@ -1,4 +1,4 @@
-package dk.dsg.view;
+package dk.dsg.gui.controller;
 
 import dk.dsg.BE.Movie;
 import javafx.event.ActionEvent;

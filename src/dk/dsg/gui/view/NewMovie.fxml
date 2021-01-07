@@ -6,7 +6,7 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="206.0" prefWidth="436.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dk.dsg.view.NewMovieController">
+<AnchorPane prefHeight="206.0" prefWidth="436.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dk.dsg.gui.controller.NewMovieController">
    <children>
       <TextField fx:id="movieName" layoutX="114.0" layoutY="57.0" prefWidth="300.0" AnchorPane.leftAnchor="114.0" AnchorPane.topAnchor="57.0" />
       <ComboBox fx:id="movieCategory" layoutX="115.0" layoutY="91.0" prefWidth="300.0" AnchorPane.leftAnchor="115.0" AnchorPane.topAnchor="91.0" />
