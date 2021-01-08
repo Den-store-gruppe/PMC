@@ -18,6 +18,7 @@ import java.awt.*;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.sql.Date;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
 
@@ -75,8 +76,10 @@ public class MainViewController implements Initializable {
 
             ratingLabel.setText(rating);
         }else{
-            movieTable.getSelectionModel().select(0);
-            updateInformation();
+            if(movieTable.getItems().size() > 0){
+                movieTable.getSelectionModel().select(0);
+                updateInformation();
+            }
         }
     }
 
@@ -103,7 +106,9 @@ public class MainViewController implements Initializable {
             Desktop desktop = Desktop.getDesktop();
             try {
                 desktop.open(new File(selectedMovie.getFilePath()));
-            } catch (IOException e) {
+                Movie tmp = new Movie(selectedMovie.getID(), selectedMovie.getMovieName(), selectedMovie.getRating(), selectedMovie.getFilePath(), new Date(System.currentTimeMillis()));
+                movieModel.updateMovie(tmp);
+            } catch (IOException | SQLException e) {
                 //TODO: show error
                 e.printStackTrace();
             }

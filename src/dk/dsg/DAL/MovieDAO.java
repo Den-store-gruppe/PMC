@@ -47,7 +47,7 @@ public class MovieDAO {
             preparedStatement.setString(1, movie.getMovieName());
             preparedStatement.setInt(2, movie.getRating());
             preparedStatement.setString(3, movie.getFilePath());
-            preparedStatement.setDate(4, (Date) movie.getLastView());
+            preparedStatement.setDate(4, movie.getLastView());
             preparedStatement.addBatch();
             preparedStatement.executeBatch();
         } catch (SQLException e) {
@@ -63,8 +63,8 @@ public class MovieDAO {
             preparedStatement.setString(1, movie.getMovieName());
             preparedStatement.setInt(2, movie.getRating());
             preparedStatement.setString(3, movie.getFilePath());
-            preparedStatement.setInt(4, movie.getID());
-            preparedStatement.setDate(5, (Date) movie.getLastView());
+            preparedStatement.setDate(4, movie.getLastView());
+            preparedStatement.setInt(5, movie.getID());
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
             //TODO: give user the warning
