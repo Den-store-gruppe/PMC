@@ -2,10 +2,7 @@ package dk.dsg.DAL;
 
 import dk.dsg.BE.MovieCat;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -34,5 +31,19 @@ public class MovieCatDAO {
             e.printStackTrace();
         }
         return allMovieCats;
+    }
+
+    public void addMovieCat(MovieCat movieCat) {
+        String query = "INSERT INTO MovieCat(categoryId, movieId) VALUES (?,?)";
+        try (Connection connection = databaseConnector.getConnection()) {
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setInt(1, movieCat.getCategoryId());
+            preparedStatement.setInt(2, movieCat.getMovieId());
+            preparedStatement.addBatch();
+            preparedStatement.executeBatch();
+        } catch (SQLException e) {
+            //TODO: give user the warning
+            e.printStackTrace();
+        }
     }
 }
