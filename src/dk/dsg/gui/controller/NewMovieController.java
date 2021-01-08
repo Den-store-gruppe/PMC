@@ -5,16 +5,17 @@ import dk.dsg.BLL.MovieManager;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.TextField;
+import javafx.scene.Parent;
+import javafx.scene.control.*;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
 import java.io.File;
 import java.net.URL;
 import java.sql.Date;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 
 public class NewMovieController implements Initializable {
@@ -31,8 +32,11 @@ public class NewMovieController implements Initializable {
     @FXML private Button movieCancel;
     @FXML private Button movieSelect;
 
+    private List<ChoiceBox<String>> choiceboxes;
+
     public NewMovieController(){
         this.movieManager = new MovieManager();
+        choiceboxes = new ArrayList<>();
     }
 
     @Override
@@ -83,5 +87,35 @@ public class NewMovieController implements Initializable {
     public void CancelNewMovie(ActionEvent actionEvent) {
         Stage stage = (Stage) movieCancel.getScene().getWindow();
         stage.close();
+    }
+
+    public void addCategory(ActionEvent actionEvent) {
+        if(choiceboxes.size() < 4){
+            ChoiceBox<String> choiceBox = new ChoiceBox<>(movieCategory.getItems());
+
+            if (choiceboxes.size() > 0) {
+                ChoiceBox<String> tmp = choiceboxes.get(choiceboxes.size() - 1);
+
+                choiceBox.setPrefSize(tmp.getPrefWidth(), tmp.getPrefHeight());
+                choiceBox.setLayoutX(tmp.getLayoutX());
+                choiceBox.setLayoutY(tmp.getLayoutY() + 34);
+            } else {
+                choiceBox.setPrefSize(movieCategory.getPrefWidth(), movieCategory.getPrefHeight());
+                choiceBox.setLayoutX(movieCategory.getLayoutX());
+                choiceBox.setLayoutY(movieCategory.getLayoutY() + 34);
+            }
+
+            AnchorPane root = (AnchorPane) movieCategory.getScene().getRoot();
+            root.getChildren().add(choiceBox);
+            choiceboxes.add(choiceBox);
+        }
+    }
+
+    public void removeCategory(ActionEvent actionEvent) {
+        if(!choiceboxes.isEmpty()){
+            AnchorPane root = (AnchorPane) movieCategory.getScene().getRoot();
+            root.getChildren().remove(choiceboxes.get(choiceboxes.size() - 1));
+            choiceboxes.remove(choiceboxes.size() - 1);
+        }
     }
 }
