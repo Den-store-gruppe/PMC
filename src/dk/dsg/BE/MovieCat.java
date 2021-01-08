@@ -1,9 +1,21 @@
 package dk.dsg.BE;
 
 public class MovieCat {
-    private final int id;
-    private final int categoryId;
-    private final int movieId;
+    private int id;
+    private int categoryId;
+    private int movieId;
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public void setCategoryId(int categoryId) {
+        this.categoryId = categoryId;
+    }
+
+    public void setMovieId(int movieId) {
+        this.movieId = movieId;
+    }
 
     public MovieCat(int id, int categoryId, int movieId) {
         this.id = id;
