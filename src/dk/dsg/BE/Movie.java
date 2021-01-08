@@ -3,7 +3,7 @@ package dk.dsg.BE;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
-import java.util.Date;
+import java.sql.Date;
 
 public class Movie {
 
@@ -49,7 +49,7 @@ public class Movie {
         this.filePath = filePath;
     }
 
-    public Date getLastView() {
+    public java.sql.Date getLastView() {
         return lastView;
     }
 

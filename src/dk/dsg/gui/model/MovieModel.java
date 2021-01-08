@@ -29,7 +29,7 @@ public class MovieModel {
 
     public void updateMovie(Movie movie) throws SQLException {
         movieManager.updateMovie(movie);
-        allMovies.add(movie);
+        //allMovies.add(movie);
         allMovies.clear();
         allMovies.addAll(movieManager.getAllMovies());
     }
