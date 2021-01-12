@@ -8,7 +8,12 @@ import java.sql.Connection;
 public class DatabaseDAO extends Configuration {
     private SQLServerDataSource dataSource;
 
-
+    /***
+     * Gets the SQLServerDataSource ready for communication
+     * between the server and the program.
+     * @see Configuration
+     * @see SQLServerDataSource
+     */
     public DatabaseDAO() {
         dataSource = new SQLServerDataSource();
         dataSource.setDatabaseName(configValues.get("DATABASE_NAME"));

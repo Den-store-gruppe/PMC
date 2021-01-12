@@ -43,6 +43,11 @@ public class MainViewController implements Initializable {
 
     private Movie selectedMovie = null;
 
+    /***
+     * Sets up the tableview that contains all of the movies
+     * @see TableView
+     * @see TableColumn
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         try {
@@ -65,6 +70,11 @@ public class MainViewController implements Initializable {
         }
     }
 
+    /***
+     * Updates the information on the right side of the
+     * screen, if there is a movie set.
+     * @see Movie
+     */
     private void updateInformation() {
 
         if(selectedMovie != null){
@@ -87,6 +97,12 @@ public class MainViewController implements Initializable {
         movieModel = new MovieModel();
     }
 
+    /***
+     * Creates a new instance of NewMovie and updates
+     * the table to include the new movie
+     * @see NewMovieController
+     * @see Movie
+     */
     public void createNewMovie(ActionEvent actionEvent) {
         try {
             Parent root = FXMLLoader.load(getClass().getResource("../view/NewMovie.fxml"));
@@ -101,6 +117,11 @@ public class MainViewController implements Initializable {
         }
     }
 
+    /***
+     * Launches the systems default video-player to play the selected Movie
+     * @see Desktop
+     * @see File
+     */
     public void playMovie(ActionEvent actionEvent) {
         if(selectedMovie != null){
             Desktop desktop = Desktop.getDesktop();
@@ -115,6 +136,9 @@ public class MainViewController implements Initializable {
         }
     }
 
+    /***
+     * Deletes a movie from the database and the list
+     */
     public void deleteMovie(ActionEvent actionEvent) {
         if(selectedMovie != null){
             movieModel.deleteMovie(selectedMovie);

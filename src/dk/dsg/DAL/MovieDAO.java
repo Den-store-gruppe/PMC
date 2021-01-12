@@ -15,6 +15,14 @@ public class MovieDAO {
         databaseConnector = new DatabaseDAO();
     }
 
+    /***
+     * Gets all the movies from the database and returns them as a list
+     * @return a list containing all the movies
+     * @throws SQLException
+     * @see Connection
+     * @see List
+     * @see Movie
+     */
     public List<Movie> getAllMovies() throws SQLException {
         Connection connection = databaseConnector.getConnection();
         List<Movie> movies = new ArrayList<>();
@@ -40,6 +48,15 @@ public class MovieDAO {
         return movies;
     }
 
+    /***
+     * Inserts a new movie into the database. Done through a
+     * prepared statement to make the action secure from
+     * sql-injections.
+     * @param movie the movie with the information we need
+     * @see Movie
+     * @see PreparedStatement
+     * @see Connection
+     */
     public void addMovie(Movie movie) {
         String query = "INSERT INTO Movie(movieName, rating, filePath, lastView) VALUES (?,?,?,?)";
         try (Connection connection = databaseConnector.getConnection()) {
@@ -56,6 +73,13 @@ public class MovieDAO {
         }
     }
 
+    /***
+     * Updated the database to reflect changes made.
+     * @param movie An altered version of the movie we want altered.
+     * @see PreparedStatement
+     * @see Movie
+     * @see Connection
+     */
     public void updateMovie(Movie movie) {
         String query = "UPDATE Movie SET movieName = ?, rating = ?, filePath = ?, lastView = ? WHERE id = ?";
         try (Connection connection = databaseConnector.getConnection()) {
@@ -72,6 +96,13 @@ public class MovieDAO {
         }
     }
 
+    /***
+     * Deletes a movie from the database with matching information
+     * as the movie given.
+     * @param movie the movie the user want to be deleted
+     * @see PreparedStatement
+     * @see Connection
+     */
     public void deleteMovie(Movie movie) {
         String query = "DELETE from Movie WHERE movieName = ?";
         try (Connection connection = databaseConnector.getConnection()) {

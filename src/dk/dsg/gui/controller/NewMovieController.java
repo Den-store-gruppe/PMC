@@ -39,11 +39,20 @@ public class NewMovieController implements Initializable {
         choiceboxes = new ArrayList<>();
     }
 
+    /***
+     * Sets the item on the ComboBox
+     * @see ComboBox
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         movieCategory.getItems().setAll(movieCategories);
     }
 
+    /***
+     * Uses the FileChooser the select the movie wanted to be listed in the database.
+     * Only files with the supported types .mp4 and .mpeg4 can be selected
+     * @see FileChooser
+     */
     public void SelectMovieFile(ActionEvent actionEvent) {
         FileChooser fc = new FileChooser();
         fc.setTitle("Select the movie...");
@@ -62,6 +71,12 @@ public class NewMovieController implements Initializable {
         }
     }
 
+    /***
+     * Gets all the given information about the movies, and then
+     * checks if they all have a value. Should one or more be
+     * empty, the user will be warned about this, and the submission
+     * will be ignored.
+     */
     public void SubmitMovie(ActionEvent actionEvent) {
         String title = movieName.getText();
         String path = moviePath.getText();
@@ -84,11 +99,20 @@ public class NewMovieController implements Initializable {
 
     }
 
+    /***
+     * Closes the window
+     * @see Stage
+     */
     public void CancelNewMovie(ActionEvent actionEvent) {
         Stage stage = (Stage) movieCancel.getScene().getWindow();
         stage.close();
     }
 
+    /***
+     * Dynamically adds more category-boxes, so that movies can have more than
+     * one category assigned.
+     * @see ChoiceBox
+     */
     public void addCategory(ActionEvent actionEvent) {
         if(choiceboxes.size() < 4){
             ChoiceBox<String> choiceBox = new ChoiceBox<>(movieCategory.getItems());
@@ -111,6 +135,9 @@ public class NewMovieController implements Initializable {
         }
     }
 
+    /***
+     * Removes the added category-boxes from the bottom up
+     */
     public void removeCategory(ActionEvent actionEvent) {
         if(!choiceboxes.isEmpty()){
             AnchorPane root = (AnchorPane) movieCategory.getScene().getRoot();

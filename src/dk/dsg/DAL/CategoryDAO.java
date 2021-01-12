@@ -16,6 +16,13 @@ public class CategoryDAO {
         databaseConnector = new DatabaseDAO();
     }
 
+    /***
+     * Gets all the categories recorded in the database and returns them as a list
+     * @return A list of all categories in the database
+     * @see Connection
+     * @see Category
+     * @see List
+     */
     public List<Category> getAllCategories() {
         List<Category> categories = new ArrayList<>();
 

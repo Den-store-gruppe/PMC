@@ -11,6 +11,14 @@ public class Configuration {
 
     protected HashMap<String, String> configValues;
 
+    /***
+     * Load all the information from a configuration file
+     * and insert all the information into a HashMap. Will be
+     * used to store database-information safer than a plain-text file
+     * @see HashMap
+     * @see java.io.File
+     * @see Paths
+     */
     public Configuration() {
 
         configValues = new HashMap<>();

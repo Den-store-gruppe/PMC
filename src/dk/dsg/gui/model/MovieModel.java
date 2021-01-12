@@ -19,7 +19,7 @@ public class MovieModel {
 
     /***
      * Puts all the movies from the MovieManager and inserts them into an ObservableList
-     * @return
+     * @return an observable list of all the movies
      * @throws SQLException
      * @see MovieManager
      */

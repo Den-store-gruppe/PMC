@@ -13,6 +13,14 @@ public class MovieCatDAO {
         databaseConnector = new DatabaseDAO();
     }
 
+    /***
+     * Gives a List filled with all the recorded movie-categories
+     * @return A list of all records in MovieCat
+     * @see Connection
+     * @see PreparedStatement
+     * @see MovieCat
+     * @see List
+     */
     public List<MovieCat> getAllMovieCat() {
         ArrayList<MovieCat> allMovieCats = new ArrayList<>();
         String query = "SELECT * FROM MovieCat";
@@ -33,6 +41,13 @@ public class MovieCatDAO {
         return allMovieCats;
     }
 
+    /***
+     * Inserts a new record of a new MovieCat into the Database
+     * @param movieCat
+     * @see MovieCat
+     * @see Connection
+     * @see PreparedStatement
+     */
     public void addMovieCat(MovieCat movieCat) {
         String query = "INSERT INTO MovieCat(categoryId, movieId) VALUES (?,?)";
         try (Connection connection = databaseConnector.getConnection()) {
