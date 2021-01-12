@@ -46,4 +46,27 @@ public class MovieCatDAO {
             e.printStackTrace();
         }
     }
+
+    public void updateMovieCat(MovieCat movieCat) {
+        String query = "UPDATE MovieCat SET categoryId = ?, movieId = ?, WHERE id = ?";
+        try (Connection connection = databaseConnector.getConnection()) {
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setInt(1, movieCat.getCategoryId());
+            preparedStatement.setInt(2, movieCat.getMovieId());
+            preparedStatement.executeBatch();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void deleteMovieCat(MovieCat movieCat) {
+        String query = "DELETE from MovieCat WHERE id = ?";
+        try(Connection connection = databaseConnector.getConnection()) {
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setInt(1, movieCat.getId());
+            preparedStatement.execute();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 }
