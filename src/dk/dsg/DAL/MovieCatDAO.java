@@ -17,7 +17,6 @@ public class MovieCatDAO {
      * Gives a List filled with all the recorded movie-categories
      * @return A list of all records in MovieCat
      * @see Connection
-     * @see PreparedStatement
      * @see MovieCat
      * @see List
      */
@@ -62,6 +61,11 @@ public class MovieCatDAO {
         }
     }
 
+    /***
+     * Updates a given MovieCat to the specified values.
+     * @param movieCat the altered MovieCat that needs to be updated in the database
+     * @see MovieCat
+     */
     public void updateMovieCat(MovieCat movieCat) {
         String query = "UPDATE MovieCat SET categoryId = ?, movieId = ?, WHERE id = ?";
         try (Connection connection = databaseConnector.getConnection()) {
@@ -74,6 +78,11 @@ public class MovieCatDAO {
         }
     }
 
+    /***
+     * Deletes a MovieCat from the database
+     * @param movieCat the MovieCat to be deleted
+     * @see MovieCat
+     */
     public void deleteMovieCat(MovieCat movieCat) {
         String query = "DELETE from MovieCat WHERE id = ?";
         try(Connection connection = databaseConnector.getConnection()) {

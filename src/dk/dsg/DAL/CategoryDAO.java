@@ -39,6 +39,11 @@ public class CategoryDAO {
         return categories;
     }
 
+    /***
+     * Adds a new category to the database records
+     * @param category the category we want to add to the database
+     * @see Category
+     */
     public void addCategory(Category category) {
         String query = "INSERT INTO Category(catName) VALUES (?)";
         try (Connection connection = databaseConnector.getConnection()) {
@@ -51,6 +56,11 @@ public class CategoryDAO {
         }
     }
 
+    /***
+     * Updates the database record with the same ID with the new values in the altered category object
+     * @param category an altered category
+     * @see Category
+     */
     public void updateCategory(Category category) {
         String query = "UPDATE Category SET catName = ? WHERE id = ?";
         try (Connection connection = databaseConnector.getConnection()) {
@@ -62,6 +72,12 @@ public class CategoryDAO {
         }
     }
 
+    /***
+     * Deleted a given category from the database records.
+     * @param category the category to be deleted
+     * @see Category
+     * @see Connection
+     */
     public void deleteMovie(Category category) {
         String query = "DELETE from Category WHERE id = ?";
         try (Connection connection = databaseConnector.getConnection()) {
