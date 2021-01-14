@@ -23,7 +23,7 @@ public class MovieFilter {
     public ObservableList<Movie> search(ObservableList<Movie> movie, String search){
         movieSearch.clear();
         for (Movie movies : movie) {
-            if (movies.getMovieName().toLowerCase().startsWith(search.toLowerCase())) {
+            if (movies.getMovieName().toLowerCase().contains(search.toLowerCase())) {
                 movieSearch.add(movies);
             }
         }
