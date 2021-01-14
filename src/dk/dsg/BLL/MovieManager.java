@@ -1,16 +1,20 @@
 package dk.dsg.BLL;
 
 import dk.dsg.BE.Movie;
+import dk.dsg.BLL.util.MovieFilter;
 import dk.dsg.DAL.MovieDAO;
+import javafx.collections.ObservableList;
 
 import java.sql.SQLException;
 import java.util.List;
 
 public class MovieManager {
     private final MovieDAO movieDAO;
+    private final MovieFilter movieFilter;
 
     public MovieManager() {
         movieDAO = new MovieDAO();
+        movieFilter = new MovieFilter();
     }
 
     /***
@@ -44,5 +48,9 @@ public class MovieManager {
      */
     public void deleteMovie(Movie movie) {
         movieDAO.deleteMovie(movie);
+    }
+
+    public ObservableList<Movie> searchMovie(ObservableList<Movie> movies, String search) {
+        return movieFilter.search(movies, search);
     }
 }

@@ -1,6 +1,8 @@
 package dk.dsg.BLL.util;
 
 import dk.dsg.BE.Movie;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,14 +17,16 @@ public class MovieFilter {
      * @param search the input from the search bar.
      * @return List of filtered movies
      */
-    public ArrayList<Movie> search(List<Movie> movie, String search){
-        ArrayList<Movie> result = new ArrayList<>();
-        for (Movie movies : movie) {
 
+    private ObservableList<Movie> movieSearch = FXCollections.observableArrayList();
+
+    public ObservableList<Movie> search(ObservableList<Movie> movie, String search){
+        movieSearch.clear();
+        for (Movie movies : movie) {
             if (movies.getMovieName().toLowerCase().startsWith(search.toLowerCase())) {
-                result.add(movies);
+                movieSearch.add(movies);
             }
         }
-        return result;
+        return movieSearch;
     }
 }

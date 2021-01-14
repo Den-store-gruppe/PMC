@@ -2,6 +2,8 @@ package dk.dsg.gui.controller;
 
 import dk.dsg.BE.Movie;
 import dk.dsg.gui.model.MovieModel;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -12,6 +14,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 import java.awt.*;
@@ -24,6 +27,8 @@ import java.util.ResourceBundle;
 
 public class MainViewController implements Initializable {
 
+
+
     private MovieModel movieModel;
 
     private final String[] movieCategories = {"Action","Adventure","Comedy","Crime","Drama","Historical","Horror","Musical","Science Fiction","War",    "Western"};
@@ -35,11 +40,14 @@ public class MainViewController implements Initializable {
     @FXML private Button editMovie;
     @FXML private Button playMovie;
     @FXML private Button deleteMovie;
+    @FXML private Button searchButton;
 
     @FXML private Label movieName;
     @FXML private Label dateLabel;
     @FXML private Label ratingLabel;
     @FXML private Label filePathLabel;
+
+    public TextField searchField;
 
     private Movie selectedMovie = null;
 
@@ -146,6 +154,18 @@ public class MainViewController implements Initializable {
                 movieTable.setItems(movieModel.getAllMovies());
             } catch (SQLException e) {
                 e.printStackTrace();
+            }
+        }
+    }
+
+    public void searchMovie(ActionEvent actionEvent) throws SQLException {
+        if (searchField.getText() == null || searchField.getText().length() <= 0) {
+            movieTable.setItems(movieModel.getAllMovies());
+        }
+        else {
+            ObservableList<Movie> movieSearcher = movieModel.searchMovie(movieModel.getAllMovies(), searchField.getText());
+            if (searchField != null) {
+                movieTable.setItems(movieSearcher);
             }
         }
     }

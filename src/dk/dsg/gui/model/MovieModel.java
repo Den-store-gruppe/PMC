@@ -59,4 +59,8 @@ public class MovieModel {
     public void deleteMovie(Movie movie) {
         movieManager.deleteMovie(movie);
     }
+
+    public ObservableList<Movie> searchMovie (ObservableList<Movie> movies, String search) {
+        return movieManager.searchMovie(movies, search);
+    }
 }
