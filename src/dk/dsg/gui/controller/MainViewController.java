@@ -41,6 +41,7 @@ public class MainViewController implements Initializable {
     @FXML private Button playMovie;
     @FXML private Button deleteMovie;
     @FXML private Button searchButton;
+    @FXML private Button createCategory;
 
     @FXML private Label movieName;
     @FXML private Label dateLabel;
@@ -125,6 +126,18 @@ public class MainViewController implements Initializable {
         }
     }
 
+    public void createNewCategory(ActionEvent actionEvent) {
+        try {
+            Parent root = FXMLLoader.load(getClass().getResource("../view/NewCategory.fxml"));
+            Stage stage = new Stage();
+            Scene scene = new Scene(root);
+            stage.setScene(scene);
+            stage.showAndWait();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     /***
      * Launches the systems default video-player to play the selected Movie
      * @see Desktop
@@ -169,4 +182,6 @@ public class MainViewController implements Initializable {
             }
         }
     }
+
+
 }

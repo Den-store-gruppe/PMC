@@ -2,6 +2,7 @@ package dk.dsg.gui.controller;
 
 import dk.dsg.BE.Movie;
 import dk.dsg.BLL.MovieManager;
+import dk.dsg.gui.model.MovieModel;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -20,7 +21,7 @@ import java.util.ResourceBundle;
 
 public class NewMovieController implements Initializable {
 
-    private MovieManager movieManager;
+    private MovieModel movieModel;
 
     private final String[] movieCategories = {"Action","Adventure","Comedy","Crime","Drama","Historical","Horror","Musical","Science Fiction","War","Western"};
 
@@ -35,7 +36,7 @@ public class NewMovieController implements Initializable {
     private List<ChoiceBox<String>> choiceboxes;
 
     public NewMovieController(){
-        this.movieManager = new MovieManager();
+        movieModel = new MovieModel();
         choiceboxes = new ArrayList<>();
     }
 
@@ -92,7 +93,7 @@ public class NewMovieController implements Initializable {
         }
 
         Movie movie = new Movie(-1,title,-1,path,new Date(System.currentTimeMillis()));
-        movieManager.addMovie(movie);
+        movieModel.addMovie(movie);
 
         Stage stage = (Stage) movieSelect.getScene().getWindow();
         stage.close();
