@@ -1,7 +1,9 @@
 package dk.dsg.DAL;
 
 import com.sun.scenario.effect.impl.prism.PrReflectionPeer;
+import dk.dsg.BE.Category;
 import dk.dsg.BE.Movie;
+import dk.dsg.BE.MovieCat;
 
 
 import java.sql.*;
@@ -10,9 +12,11 @@ import java.util.List;
 
 public class MovieDAO {
 
+    MovieCatDAO mcd;
     private final DatabaseDAO databaseConnector;
     public MovieDAO() {
         databaseConnector = new DatabaseDAO();
+        mcd = new MovieCatDAO();
     }
 
     /***
@@ -51,7 +55,9 @@ public class MovieDAO {
     /***
      * Inserts a new movie into the database. Done through a
      * prepared statement to make the action secure from
-     * sql-injections.
+     * sql-injections. After inserting a movie, the resultset
+     * will get pulled, and MovieCat objects will be pushed
+     * onto the database.
      * @param movie the movie with the information we need
      * @see Movie
      * @see PreparedStatement
@@ -60,13 +66,27 @@ public class MovieDAO {
     public void addMovie(Movie movie) {
         String query = "INSERT INTO Movie(movieName, rating, filePath, lastView) VALUES (?,?,?,?)";
         try (Connection connection = databaseConnector.getConnection()) {
-            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            //insert into the db
+            PreparedStatement preparedStatement = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
             preparedStatement.setString(1, movie.getMovieName());
             preparedStatement.setInt(2, movie.getRating());
             preparedStatement.setString(3, movie.getFilePath());
             preparedStatement.setDate(4, movie.getLastView());
-            preparedStatement.addBatch();
-            preparedStatement.executeBatch();
+            preparedStatement.execute();
+
+            //Extract the newly created records info
+            ResultSet set = preparedStatement.getGeneratedKeys();
+            if(set.next()){
+                long id = set.getLong(1);
+                movie.setId((int) id);
+            }
+
+            //Create a MovieCat object and let MovieCatDAO handle the insertion
+            for(Category c : movie.getCategories()){
+                MovieCat tmp = new MovieCat(-1,c.getID(),movie.getID());
+                mcd.addMovieCat(tmp);
+            }
+
         } catch (SQLException e) {
             //TODO: give user the warning
             e.printStackTrace();

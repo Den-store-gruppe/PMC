@@ -1,8 +1,11 @@
 package dk.dsg.gui.controller;
 
+import dk.dsg.BE.Category;
 import dk.dsg.BE.Movie;
 import dk.dsg.BLL.MovieManager;
+import dk.dsg.gui.model.CategoryModel;
 import dk.dsg.gui.model.MovieModel;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -21,9 +24,8 @@ import java.util.ResourceBundle;
 
 public class NewMovieController implements Initializable {
 
-
-
     private MovieModel movieModel;
+    private CategoryModel catModel;
 
     private final String[] movieCategories = {"Action","Adventure","Comedy","Crime","Drama","Historical","Horror","Musical","Science Fiction","War","Western"};
 
@@ -40,6 +42,7 @@ public class NewMovieController implements Initializable {
 
     public NewMovieController(){
         movieModel = new MovieModel();
+        catModel = new CategoryModel();
         choiceboxes = new ArrayList<>();
     }
 
@@ -99,6 +102,22 @@ public class NewMovieController implements Initializable {
         }
 
         Movie movie = new Movie(-1,title,rating,path,new Date(System.currentTimeMillis()));
+
+        ObservableList<Category> cats = catModel.getAllCategories();
+        for(ChoiceBox<String> box : choiceboxes){
+            for (Category cat: cats) {
+                if(cat.getCatName().toLowerCase().equals(box.getSelectionModel().getSelectedItem().toLowerCase())){
+                    movie.addCategory(cat);
+                }
+            }
+        }
+
+        for (Category cat: cats) {
+            if(cat.getCatName().toLowerCase().equals(movieCategory.getSelectionModel().getSelectedItem().toLowerCase())){
+                movie.addCategory(cat);
+            }
+        }
+
         movieModel.addMovie(movie);
 
         Stage stage = (Stage) movieSelect.getScene().getWindow();

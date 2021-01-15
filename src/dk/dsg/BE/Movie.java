@@ -4,14 +4,18 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
 import java.sql.Date;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Movie {
 
-    private final int id;
+    private int id;
     private StringProperty movieName;
     private final int rating;
     private String filePath;
     private Date lastView;
+
+    private List<Category> categories;
 
     public Movie(int id, String movieName, int rating, String filePath, Date lastView) {
         this.id = id;
@@ -19,6 +23,19 @@ public class Movie {
         this.rating = rating;
         this.filePath = filePath;
         this.lastView = lastView;
+        categories = new ArrayList<>();
+    }
+
+    public void addCategory(Category category){
+        this.categories.add(category);
+    }
+
+    public void addCategories(List<Category> categories){
+        this.categories.addAll(categories);
+    }
+
+    public void removeCategory(Category category){
+        this.categories.remove(category);
     }
 
     public int getID() {
@@ -55,5 +72,13 @@ public class Movie {
 
     public void setLastView(Date lastView) {
         this.lastView = lastView;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public List<Category> getCategories() {
+        return this.categories;
     }
 }
