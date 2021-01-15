@@ -21,6 +21,8 @@ import java.util.ResourceBundle;
 
 public class NewMovieController implements Initializable {
 
+
+
     private MovieModel movieModel;
 
     private final String[] movieCategories = {"Action","Adventure","Comedy","Crime","Drama","Historical","Horror","Musical","Science Fiction","War","Western"};
@@ -28,6 +30,7 @@ public class NewMovieController implements Initializable {
     @FXML private TextField movieName;
     @FXML private ComboBox<String> movieCategory;
     @FXML private TextField moviePath;
+    @FXML private TextField ratingNumber;
 
     @FXML private Button movieSubmit;
     @FXML private Button movieCancel;
@@ -84,6 +87,7 @@ public class NewMovieController implements Initializable {
         String title = movieName.getText();
         String path = moviePath.getText();
         String category = movieCategory.getSelectionModel().getSelectedItem();
+        int rating = Integer.parseInt(ratingNumber.getText());
 
         if(category == null || title == null || path == null) {
             Alert alert = new Alert(Alert.AlertType.WARNING);
@@ -94,7 +98,7 @@ public class NewMovieController implements Initializable {
             return;
         }
 
-        Movie movie = new Movie(-1,title,-1,path,new Date(System.currentTimeMillis()));
+        Movie movie = new Movie(-1,title,rating,path,new Date(System.currentTimeMillis()));
         movieModel.addMovie(movie);
 
         Stage stage = (Stage) movieSelect.getScene().getWindow();
