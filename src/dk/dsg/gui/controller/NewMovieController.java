@@ -56,7 +56,7 @@ public class NewMovieController implements Initializable {
     public void SelectMovieFile(ActionEvent actionEvent) {
         FileChooser fc = new FileChooser();
         fc.setTitle("Select the movie...");
-        fc.setInitialDirectory(new File("Movies/"));
+        fc.setInitialDirectory(new File("Movies/"));//Movies folder will pop up when Select Movie is clicked
         fc.setTitle("Select movie");
         fc.getExtensionFilters().addAll(
                 new FileChooser.ExtensionFilter("Audio Files", "*.mp4", "*.mpeg4")
