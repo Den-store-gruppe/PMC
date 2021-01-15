@@ -1,6 +1,8 @@
 package dk.dsg.gui.controller;
 
+import dk.dsg.BE.Category;
 import dk.dsg.BE.Movie;
+import dk.dsg.gui.model.CategoryModel;
 import dk.dsg.gui.model.MovieModel;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -30,11 +32,14 @@ public class MainViewController implements Initializable {
 
 
     private MovieModel movieModel;
+    private CategoryModel categoryModel;
 
     private final String[] movieCategories = {"Action","Adventure","Comedy","Crime","Drama","Historical","Horror","Musical","Science Fiction","War",    "Western"};
 
     @FXML private TableView<Movie> movieTable;
     @FXML private TableColumn<Movie, String> movieTableName;
+    @FXML private TableView<Category> categoryTable;
+    @FXML private TableColumn<Category, String> categoryNameTable;
 
     @FXML private Button createMovie;
     @FXML private Button editMovie;
@@ -42,6 +47,7 @@ public class MainViewController implements Initializable {
     @FXML private Button deleteMovie;
     @FXML private Button searchButton;
     @FXML private Button createCategory;
+    @FXML private Button deleteCategory;
 
     @FXML private Label movieName;
     @FXML private Label dateLabel;
@@ -51,6 +57,7 @@ public class MainViewController implements Initializable {
     public TextField searchField;
 
     private Movie selectedMovie = null;
+    private Category selectedCategory = null;
 
     /***
      * Sets up the tableview that contains all of the movies
@@ -70,6 +77,19 @@ public class MainViewController implements Initializable {
 
             if(movieTable.getItems().size() != 0){
                 movieTable.getSelectionModel().select(0);
+                updateInformation();
+            }
+
+            categoryTable.setItems(categoryModel.getAllCategories());
+            categoryNameTable.setCellValueFactory(celldata -> celldata.getValue().getCatNameProperty());
+
+            categoryTable.getSelectionModel().selectedItemProperty().addListener((observableValue, oldValue, newValue) -> {
+                selectedCategory = newValue;
+                updateInformation();
+            });
+
+            if(categoryTable.getItems().size() != 0) {
+                categoryTable.getSelectionModel().select(0);
                 updateInformation();
             }
 
@@ -103,6 +123,7 @@ public class MainViewController implements Initializable {
     }
 
     public MainViewController(){
+        categoryModel = new CategoryModel();
         movieModel = new MovieModel();
     }
 
@@ -171,6 +192,13 @@ public class MainViewController implements Initializable {
         }
     }
 
+    public void deleteCategory(ActionEvent actionEvent) {
+        if(selectedCategory != null) {
+            categoryModel.deleteCategory(selectedCategory);
+            categoryTable.setItems(categoryModel.getAllCategories());
+        }
+    }
+
     public void searchMovie(ActionEvent actionEvent) throws SQLException {
         if (searchField.getText() == null || searchField.getText().length() <= 0) {
             movieTable.setItems(movieModel.getAllMovies());
@@ -182,6 +210,7 @@ public class MainViewController implements Initializable {
             }
         }
     }
+
 
 
 }

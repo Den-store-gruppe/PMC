@@ -8,15 +8,15 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dk.dsg.gui.controller.MainViewController">
+<AnchorPane prefHeight="600.0" prefWidth="1075.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dk.dsg.gui.controller.MainViewController">
    <children>
       <TableView fx:id="movieTable" prefHeight="600.0" prefWidth="250.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="25.0">
         <columns>
           <TableColumn fx:id="movieTableName" prefWidth="250.0" text="Name" />
         </columns>
       </TableView>
-      <AnchorPane layoutX="250.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="250.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-         <Label fx:id="movieName" alignment="CENTER" layoutX="198.0" layoutY="27.0" text="Movie Name" textAlignment="CENTER" AnchorPane.leftAnchor="12.0" AnchorPane.rightAnchor="12.0" AnchorPane.topAnchor="12.0">
+      <AnchorPane layoutX="250.0" prefHeight="600.0" prefWidth="565.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="250.0" AnchorPane.rightAnchor="-15.0" AnchorPane.topAnchor="0.0">
+         <Label fx:id="movieName" alignment="CENTER" layoutX="8.0" layoutY="14.0" prefHeight="32.0" prefWidth="677.0" text="Movie Name" textAlignment="CENTER" AnchorPane.leftAnchor="8.0" AnchorPane.rightAnchor="155.0" AnchorPane.topAnchor="14.0">
             <font>
                <Font name="Arial Bold" size="28.0" />
             </font>
@@ -39,17 +39,23 @@
          <Label fx:id="dateLabel" layoutX="124.0" layoutY="125.0" text="DATE NOT FOUND" AnchorPane.leftAnchor="124.0" AnchorPane.topAnchor="125.0" />
          <Label fx:id="ratingLabel" layoutX="124.0" layoutY="150.0" text="RATING NOT FOUND" AnchorPane.leftAnchor="124.0" AnchorPane.topAnchor="150.0" />
          <Label fx:id="filePathLabel" layoutX="124.0" layoutY="174.0" text="/PATH/NOT/FOUND" AnchorPane.leftAnchor="124.0" AnchorPane.topAnchor="174.0" />
-         <Button fx:id="createMovie" layoutX="460.0" layoutY="535.0" mnemonicParsing="false" onAction="#createNewMovie" text="New Movie" AnchorPane.rightAnchor="14.0" />
-         <Button fx:id="editMovie" layoutX="131.0" layoutY="535.0" mnemonicParsing="false" text="Edit Movie" AnchorPane.leftAnchor="130.0" />
+         <Button fx:id="createMovie" layoutX="283.0" layoutY="535.0" mnemonicParsing="false" onAction="#createNewMovie" text="New Movie" AnchorPane.rightAnchor="481.0" />
+         <Button fx:id="editMovie" layoutX="105.0" layoutY="535.0" mnemonicParsing="false" text="Edit Movie" AnchorPane.leftAnchor="105.0" />
          <Label layoutX="15.0" layoutY="205.0" text="Categories:" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="194.0">
             <font>
                <Font name="Arial Bold" size="18.0" />
             </font>
          </Label>
          <Label fx:id="filePathLabel1" layoutX="121.0" layoutY="197.0" text="CATEGORIES, NOT, FOUND" AnchorPane.leftAnchor="124.0" AnchorPane.topAnchor="197.0" />
-         <Button fx:id="deleteMovie" layoutX="226.0" layoutY="535.0" mnemonicParsing="false" onAction="#deleteMovie" text="Delete Movie" AnchorPane.leftAnchor="230.0" />
-         <Button fx:id="playMovie" layoutX="29.0" layoutY="535.0" mnemonicParsing="false" onAction="#playMovie" text="Play Movie" AnchorPane.leftAnchor="30.0" />
-         <Button fx:id="createCategory" layoutX="354.0" layoutY="535.0" mnemonicParsing="false" onAction="#createNewCategory" prefHeight="25.0" prefWidth="100.0" text="New Category" />
+         <Button fx:id="deleteMovie" layoutX="190.0" layoutY="535.0" mnemonicParsing="false" onAction="#deleteMovie" text="Delete Movie" AnchorPane.leftAnchor="190.0" />
+         <Button fx:id="playMovie" layoutX="18.0" layoutY="535.0" mnemonicParsing="false" onAction="#playMovie" text="Play Movie" AnchorPane.leftAnchor="18.0" />
+         <Button fx:id="createCategory" layoutX="524.0" layoutY="535.0" mnemonicParsing="false" onAction="#createNewCategory" prefHeight="25.0" prefWidth="100.0" text="New Category" />
+         <TableView fx:id="categoryTable" layoutX="635.0" prefHeight="600.0" prefWidth="191.0">
+           <columns>
+             <TableColumn fx:id="categoryNameTable" prefWidth="256.0" text="Categories" />
+           </columns>
+         </TableView>
+         <Button fx:id="deleteCategory" layoutX="414.0" layoutY="535.0" mnemonicParsing="false" onAction="#deleteCategory" text="Delete Category" />
       </AnchorPane>
       <TextField fx:id="searchField" prefHeight="25.0" prefWidth="191.0" promptText="Search..." />
       <Button fx:id="searchButton" layoutX="188.0" mnemonicParsing="false" onAction="#searchMovie" prefHeight="25.0" prefWidth="62.0" text="Search" />
