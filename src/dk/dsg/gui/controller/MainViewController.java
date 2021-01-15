@@ -17,6 +17,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 
 import java.awt.*;
@@ -38,6 +39,7 @@ public class MainViewController implements Initializable {
 
     @FXML private TableView<Movie> movieTable;
     @FXML private TableColumn<Movie, String> movieTableName;
+    @FXML private TableColumn<Movie, Integer> ratingTable;
     @FXML private TableView<Category> categoryTable;
     @FXML private TableColumn<Category, String> categoryNameTable;
 
@@ -69,6 +71,7 @@ public class MainViewController implements Initializable {
         try {
             movieTable.setItems(movieModel.getAllMovies());
             movieTableName.setCellValueFactory(celldata -> celldata.getValue().movieNameProperty());
+            ratingTable.setCellValueFactory(new PropertyValueFactory<>("rating"));
 
             movieTable.getSelectionModel().selectedItemProperty().addListener((observableValue, oldValue, newValue)->{
                 selectedMovie = newValue;
