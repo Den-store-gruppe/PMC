@@ -56,7 +56,6 @@ public class MovieCatDAO {
                         resultSet.getInt("id"),
                         resultSet.getString("catName")
                 ));
-                System.out.println(tmp.get(tmp.size() - 1).getCatName());
             }
 
             return tmp;

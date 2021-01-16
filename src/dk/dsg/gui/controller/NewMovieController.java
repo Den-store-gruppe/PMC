@@ -18,6 +18,7 @@ import javafx.stage.Stage;
 import java.io.File;
 import java.net.URL;
 import java.sql.Date;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -91,15 +92,28 @@ public class NewMovieController implements Initializable {
         String title = movieName.getText();
         String path = moviePath.getText();
         String category = movieCategory.getSelectionModel().getSelectedItem();
-        int rating = Integer.parseInt(ratingNumber.getText());
+        int rating = (!ratingNumber.getText().isEmpty()) ? Integer.parseInt(ratingNumber.getText()) : -1;
 
-        if(category == null || title == null || path == null) {
-            Alert alert = new Alert(Alert.AlertType.WARNING);
-            alert.setTitle("Missing arguments");
-            alert.setHeaderText("You are missing some arguments");
-            alert.setContentText("Please remember to either select a movie, or give it a category. A name is automatically found based on the name of the file.");
-            alert.show();
+        if(category == null || title == null || path == null || rating == -1) {
+            alertUser("Missing arguments","Please remember to either select a movie, or give it a category. A name is automatically found based on the name of the file.");
             return;
+        }
+
+        if(rating > 10 || rating < 0) {
+            alertUser("Rating out of bounds", "Only rate movies between the values of 0 and 10. You inserted \"" + rating + "\" which is invalid. Try again");
+            return;
+        }
+
+        try {
+            for(Movie m : movieModel.getAllMovies()){
+                if (m.getMovieName().equals(title)) {
+                    alertUser("Movie already existing", "A movie with the same name has already been registered. Please make sure this is either a unique movie, and if so, make sure it has a unique name");
+                    return;
+                }
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
 
         Movie movie = new Movie(-1,title,rating,path,new Date(System.currentTimeMillis()));
@@ -124,6 +138,14 @@ public class NewMovieController implements Initializable {
         Stage stage = (Stage) movieSelect.getScene().getWindow();
         stage.close();
 
+    }
+
+    private void alertUser(String title, String msg){
+        Alert alert = new Alert(Alert.AlertType.WARNING);
+        alert.setTitle(title);
+        alert.setHeaderText("Error occured while inserting the movie...");
+        alert.setContentText(msg);
+        alert.show();
     }
 
     /***
