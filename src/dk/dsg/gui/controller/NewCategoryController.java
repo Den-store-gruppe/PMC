@@ -1,6 +1,7 @@
 package dk.dsg.gui.controller;
 
 import dk.dsg.BE.Category;
+import dk.dsg.BLL.util.AlertSystem;
 import dk.dsg.gui.model.CategoryModel;
 import javafx.event.ActionEvent;
 import javafx.scene.control.Alert;
@@ -25,11 +26,7 @@ public class NewCategoryController {
         String title = categoryName.getText();
 
         if(title == null) {
-            Alert alert = new Alert(Alert.AlertType.WARNING);
-            alert.setTitle("Missing argument");
-            alert.setHeaderText("You are missing a argument");
-            alert.setContentText("Remember to give the category a name");
-            alert.show();
+            AlertSystem.alertUser("Missing Argument","Remember to give the category a name");
             return;
         }
 

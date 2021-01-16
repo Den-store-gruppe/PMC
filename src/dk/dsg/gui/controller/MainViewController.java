@@ -2,6 +2,7 @@ package dk.dsg.gui.controller;
 
 import dk.dsg.BE.Category;
 import dk.dsg.BE.Movie;
+import dk.dsg.BLL.util.AlertSystem;
 import dk.dsg.gui.model.CategoryModel;
 import dk.dsg.gui.model.MovieCatModel;
 import dk.dsg.gui.model.MovieModel;
@@ -27,6 +28,10 @@ import java.io.IOException;
 import java.net.URL;
 import java.sql.Date;
 import java.sql.SQLException;
+import java.time.LocalDate;
+import java.time.Period;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 
 public class MainViewController implements Initializable {
@@ -68,6 +73,9 @@ public class MainViewController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+
+        remindUser();
+
         try {
             movieTable.setItems(movieModel.getAllMovies());
             movieTableName.setCellValueFactory(celldata -> celldata.getValue().movieNameProperty());
@@ -98,6 +106,27 @@ public class MainViewController implements Initializable {
 
         } catch (SQLException e) {
             //TODO: give user the warning
+            e.printStackTrace();
+        }
+    }
+
+    private void remindUser() {
+        boolean remind = false;
+        List<String> movieNames = new ArrayList<>();
+        try {
+            List<Movie> movies = movieModel.getAllMovies();
+            for (Movie m : movies){
+
+                if(Period.between(LocalDate.now(), m.getLastView().toLocalDate()).getMonths() <= -6 ){
+                    movieNames.add(m.getMovieName());
+                }
+
+            }
+
+            if(movieNames.size() > 0)
+                AlertSystem.alertUser("","");
+
+        } catch (SQLException e) {
             e.printStackTrace();
         }
     }

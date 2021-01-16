@@ -3,6 +3,7 @@ package dk.dsg.gui.controller;
 import dk.dsg.BE.Category;
 import dk.dsg.BE.Movie;
 import dk.dsg.BLL.MovieManager;
+import dk.dsg.BLL.util.AlertSystem;
 import dk.dsg.gui.model.CategoryModel;
 import dk.dsg.gui.model.MovieModel;
 import javafx.collections.ObservableList;
@@ -98,12 +99,12 @@ public class NewMovieController implements Initializable {
         int rating = (!ratingNumber.getText().isEmpty()) ? Integer.parseInt(ratingNumber.getText()) : -1;
 
         if(category == null || title == null || path == null || rating == -1) {
-            alertUser("Missing arguments","Please remember to either select a movie, or give it a category. A name is automatically found based on the name of the file.");
+            AlertSystem.alertUser("Missing arguments","Please remember to either select a movie, or give it a category. A name is automatically found based on the name of the file.");
             return;
         }
 
         if(rating > 10 || rating < 0) {
-            alertUser("Rating out of bounds", "Only rate movies between the values of 0 and 10. You inserted \"" + rating + "\" which is invalid. Try again");
+            AlertSystem.alertUser("Rating out of bounds", "Only rate movies between the values of 0 and 10. You inserted \"" + rating + "\" which is invalid. Try again");
             return;
         }
 
@@ -111,7 +112,7 @@ public class NewMovieController implements Initializable {
             if(parsedMovie == null){
                 for (Movie m : movieModel.getAllMovies()) {
                     if (m.getMovieName().equals(title)) {
-                        alertUser("Movie already existing", "A movie with the same name has already been registered. Please make sure this is either a unique movie, and if so, make sure it has a unique name");
+                        AlertSystem.alertUser("Movie already existing", "A movie with the same name has already been registered. Please make sure this is either a unique movie, and if so, make sure it has a unique name");
                         return;
                     }
                 }
@@ -119,7 +120,7 @@ public class NewMovieController implements Initializable {
                 if(!parsedMovie.getMovieName().equals(title)){
                     for (Movie m : movieModel.getAllMovies()) {
                         if (m.getMovieName().equals(title)) {
-                            alertUser("Movie already existing", "A movie with the same name has already been registered. Please make sure this is either a unique movie, and if so, make sure it has a unique name");
+                            AlertSystem.alertUser("Movie already existing", "A movie with the same name has already been registered. Please make sure this is either a unique movie, and if so, make sure it has a unique name");
                             return;
                         }
                     }
@@ -166,14 +167,6 @@ public class NewMovieController implements Initializable {
         Stage stage = (Stage) movieSelect.getScene().getWindow();
         stage.close();
 
-    }
-
-    private void alertUser(String title, String msg){
-        Alert alert = new Alert(Alert.AlertType.WARNING);
-        alert.setTitle(title);
-        alert.setHeaderText("Error occured while inserting the movie...");
-        alert.setContentText(msg);
-        alert.show();
     }
 
     /***
