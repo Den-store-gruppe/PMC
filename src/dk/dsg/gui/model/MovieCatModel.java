@@ -35,10 +35,10 @@ public class MovieCatModel {
 
     /***
      * Updates a movie with a category
-     * @param movieCat
+     * @param movie
      */
-    public void updateMovieCat(MovieCat movieCat) {
-        movieCatManager.updateMovieCat(movieCat);
+    public void updateMovieCat(Movie movie) {
+        movieCatManager.updateMovieCat(movie);
         allMovieCats.clear();
         allMovieCats.addAll(movieCatManager.getAllMovieCats());
     }

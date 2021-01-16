@@ -31,10 +31,10 @@ public class MovieCatManager {
 
     /***
      * Updates a movie with a category in the database.
-     * @param movieCat
+     * @param movie
      */
-    public void updateMovieCat(MovieCat movieCat) {
-        movieCatDAO.updateMovieCat(movieCat);
+    public void updateMovieCat(Movie movie) {
+        movieCatDAO.updateMovieCat(movie);
     }
 
     /***

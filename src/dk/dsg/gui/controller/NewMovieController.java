@@ -136,21 +136,24 @@ public class NewMovieController implements Initializable {
         if(parsedMovie == null) {
             movie = new Movie(-1, title, rating, path, new Date(System.currentTimeMillis()));
         } else {
-            movie = new Movie(parsedMovie.getID(), title, rating, path, new Date(System.currentTimeMillis()));
+            movie = new Movie(parsedMovie.getID(), title, rating, path, parsedMovie.getLastView());
         }
 
         ObservableList<Category> cats = catModel.getAllCategories();
+
+        //default cat-box
+        for (Category cat: cats) {
+            if(cat.getCatName().toLowerCase().equals(movieCategory.getSelectionModel().getSelectedItem().toLowerCase())){
+                movie.addCategory(cat);
+            }
+        }
+
+        //all the extra cat-boxes
         for(ChoiceBox<String> box : choiceboxes){
             for (Category cat: cats) {
                 if(cat.getCatName().toLowerCase().equals(box.getSelectionModel().getSelectedItem().toLowerCase())){
                     movie.addCategory(cat);
                 }
-            }
-        }
-
-        for (Category cat: cats) {
-            if(cat.getCatName().toLowerCase().equals(movieCategory.getSelectionModel().getSelectedItem().toLowerCase())){
-                movie.addCategory(cat);
             }
         }
 
@@ -222,6 +225,8 @@ public class NewMovieController implements Initializable {
         moviePath.setText(parsedMovie.getFilePath());
         ratingNumber.setText("" + parsedMovie.getRating());
         movieCategory.getSelectionModel().select(parsedMovie.getCategories().get(0).getCatName());
+
+        //If there is more than 1 category, run through all the categories to add them
         if(parsedMovie.getCategories().size() > 1){
             for(int i = 1; i < parsedMovie.getCategories().size(); i++){
                 addCategory(null);

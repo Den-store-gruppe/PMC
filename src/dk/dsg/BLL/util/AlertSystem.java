@@ -8,9 +8,9 @@ public class AlertSystem {
     public static void alertUser(String title,String subMsg, String msg){
         Alert alert = new Alert(Alert.AlertType.WARNING);
 
+        //Make sure the alert stays on top!
         Stage stage = (Stage) alert.getDialogPane().getScene().getWindow();
         stage.setAlwaysOnTop(true);
-        stage.toFront();
 
         alert.setTitle(title);
         alert.setHeaderText(subMsg);

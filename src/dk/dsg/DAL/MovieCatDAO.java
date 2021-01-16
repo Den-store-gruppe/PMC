@@ -88,18 +88,13 @@ public class MovieCatDAO {
 
     /***
      * Updates a given MovieCat to the specified values.
-     * @param movieCat the altered MovieCat that needs to be updated in the database
+     * @param movie the movie with categories that needs to be updated in the database
      * @see MovieCat
      */
-    public void updateMovieCat(MovieCat movieCat) {
-        String query = "UPDATE MovieCat SET categoryId = ?, movieId = ?, WHERE id = ?";
-        try (Connection connection = databaseConnector.getConnection()) {
-            PreparedStatement preparedStatement = connection.prepareStatement(query);
-            preparedStatement.setInt(1, movieCat.getCategoryId());
-            preparedStatement.setInt(2, movieCat.getMovieId());
-            preparedStatement.executeBatch();
-        } catch (SQLException e) {
-            e.printStackTrace();
+    public void updateMovieCat(Movie movie) {
+        deleteMovieCat(new MovieCat(-1,-1, movie.getID()));
+        for (Category c : movie.getCategories()){
+            addMovieCat(new MovieCat(-1,c.getID(),movie.getID()));
         }
     }
 

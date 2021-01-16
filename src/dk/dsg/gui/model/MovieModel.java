@@ -1,6 +1,8 @@
 package dk.dsg.gui.model;
 
 import dk.dsg.BE.Movie;
+import dk.dsg.BE.MovieCat;
+import dk.dsg.BLL.MovieCatManager;
 import dk.dsg.BLL.MovieManager;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -12,9 +14,11 @@ public class MovieModel {
     private ObservableList<Movie> allMovies = FXCollections.observableArrayList();
 
     private final MovieManager movieManager;
+    private final MovieCatManager movieCatManager;
 
     public MovieModel() {
         movieManager = new MovieManager();
+        movieCatManager = new MovieCatManager();
     }
 
     /***
@@ -46,6 +50,7 @@ public class MovieModel {
      */
     public void updateMovie(Movie movie) throws SQLException {
         movieManager.updateMovie(movie);
+        movieCatManager.updateMovieCat(movie);
         allMovies.clear();
         allMovies.addAll(movieManager.getAllMovies());
     }
