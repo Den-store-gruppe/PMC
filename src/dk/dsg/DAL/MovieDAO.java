@@ -1,6 +1,5 @@
 package dk.dsg.DAL;
 
-import com.sun.scenario.effect.impl.prism.PrReflectionPeer;
 import dk.dsg.BE.Category;
 import dk.dsg.BE.Movie;
 import dk.dsg.BE.MovieCat;
@@ -12,11 +11,11 @@ import java.util.List;
 
 public class MovieDAO {
 
-    MovieCatDAO mcd;
+    MovieCatDAO movieCatDAO;
     private final DatabaseDAO databaseConnector;
     public MovieDAO() {
         databaseConnector = new DatabaseDAO();
-        mcd = new MovieCatDAO();
+        movieCatDAO = new MovieCatDAO();
     }
 
     /***
@@ -84,7 +83,7 @@ public class MovieDAO {
             //Create a MovieCat object and let MovieCatDAO handle the insertion
             for(Category c : movie.getCategories()){
                 MovieCat tmp = new MovieCat(-1,c.getID(),movie.getID());
-                mcd.addMovieCat(tmp);
+                movieCatDAO.addMovieCat(tmp);
             }
 
         } catch (SQLException e) {

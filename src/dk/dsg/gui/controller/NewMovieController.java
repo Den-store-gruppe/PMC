@@ -27,8 +27,6 @@ public class NewMovieController implements Initializable {
     private MovieModel movieModel;
     private CategoryModel catModel;
 
-    private final String[] movieCategories = {"Action","Adventure","Comedy","Crime","Drama","Historical","Horror","Musical","Science Fiction","War","Western"};
-
     @FXML private TextField movieName;
     @FXML private ComboBox<String> movieCategory;
     @FXML private TextField moviePath;
@@ -52,7 +50,10 @@ public class NewMovieController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        movieCategory.getItems().setAll(movieCategories);
+        List<Category> tmpCategories = catModel.getAllCategories();
+        for(Category c : tmpCategories){
+            movieCategory.getItems().add(c.getCatName());
+        }
     }
 
     /***

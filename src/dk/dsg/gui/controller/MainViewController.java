@@ -34,8 +34,6 @@ public class MainViewController implements Initializable {
     private MovieModel movieModel;
     private CategoryModel categoryModel;
 
-    private final String[] movieCategories = {"Action","Adventure","Comedy","Crime","Drama","Historical","Horror","Musical","Science Fiction","War",    "Western"};
-
     @FXML private TableView<Movie> movieTable;
     @FXML private TableColumn<Movie, String> movieTableName;
     @FXML private TableView<Category> categoryTable;
