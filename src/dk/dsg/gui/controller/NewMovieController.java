@@ -99,12 +99,12 @@ public class NewMovieController implements Initializable {
         int rating = (!ratingNumber.getText().isEmpty()) ? Integer.parseInt(ratingNumber.getText()) : -1;
 
         if(category == null || title == null || path == null || rating == -1) {
-            AlertSystem.alertUser("Missing arguments","Please remember to either select a movie, or give it a category. A name is automatically found based on the name of the file.");
+            AlertSystem.alertUser("Missing arguments","Error occurred while inserting...","Please remember to either select a movie, or give it a category. A name is automatically found based on the name of the file.");
             return;
         }
 
         if(rating > 10 || rating < 0) {
-            AlertSystem.alertUser("Rating out of bounds", "Only rate movies between the values of 0 and 10. You inserted \"" + rating + "\" which is invalid. Try again");
+            AlertSystem.alertUser("Rating out of bounds","Error occurred while inserting...", "Only rate movies between the values of 0 and 10. You inserted \"" + rating + "\" which is invalid. Try again");
             return;
         }
 
@@ -112,7 +112,7 @@ public class NewMovieController implements Initializable {
             if(parsedMovie == null){
                 for (Movie m : movieModel.getAllMovies()) {
                     if (m.getMovieName().equals(title)) {
-                        AlertSystem.alertUser("Movie already existing", "A movie with the same name has already been registered. Please make sure this is either a unique movie, and if so, make sure it has a unique name");
+                        AlertSystem.alertUser("Movie already existing","Error occurred while inserting...", "A movie with the same name has already been registered. Please make sure this is either a unique movie, and if so, make sure it has a unique name");
                         return;
                     }
                 }
@@ -120,7 +120,7 @@ public class NewMovieController implements Initializable {
                 if(!parsedMovie.getMovieName().equals(title)){
                     for (Movie m : movieModel.getAllMovies()) {
                         if (m.getMovieName().equals(title)) {
-                            AlertSystem.alertUser("Movie already existing", "A movie with the same name has already been registered. Please make sure this is either a unique movie, and if so, make sure it has a unique name");
+                            AlertSystem.alertUser("Movie already existing", "Error occurred while inserting...","A movie with the same name has already been registered. Please make sure this is either a unique movie, and if so, make sure it has a unique name");
                             return;
                         }
                     }

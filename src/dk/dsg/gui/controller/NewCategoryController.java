@@ -30,7 +30,7 @@ public class NewCategoryController {
         String title = categoryName.getText();
 
         if(title == null) {
-            AlertSystem.alertUser("Missing Argument","Remember to give the category a name");
+            AlertSystem.alertUser("Missing Argument","Missing argument...","Remember to give the category a name");
             return;
         }
 

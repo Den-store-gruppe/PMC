@@ -73,9 +73,6 @@ public class MainViewController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-
-        remindUser();
-
         try {
             movieTable.setItems(movieModel.getAllMovies());
             movieTableName.setCellValueFactory(celldata -> celldata.getValue().movieNameProperty());
@@ -108,23 +105,30 @@ public class MainViewController implements Initializable {
             //TODO: give user the warning
             e.printStackTrace();
         }
+
+        remindUser();
+
     }
 
     private void remindUser() {
-        boolean remind = false;
         List<String> movieNames = new ArrayList<>();
         try {
             List<Movie> movies = movieModel.getAllMovies();
             for (Movie m : movies){
 
-                if(Period.between(LocalDate.now(), m.getLastView().toLocalDate()).getMonths() <= -6 ){
+                if(Period.between(LocalDate.now(), m.getLastView().toLocalDate()).getMonths() <= -24 || m.getRating() < 6){
                     movieNames.add(m.getMovieName());
                 }
 
             }
 
-            if(movieNames.size() > 0)
-                AlertSystem.alertUser("","");
+            if(movieNames.size() > 0) {
+                String moviesToDelete = "";
+                for(String name : movieNames){
+                    moviesToDelete += name + "\r\n";
+                }
+                AlertSystem.alertUser("Delete movies...", "","Heres a list of movies that you haven't watched in over 2 years, or that you have rated below 6:\n" + moviesToDelete);
+            }
 
         } catch (SQLException e) {
             e.printStackTrace();

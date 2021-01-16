@@ -1,13 +1,19 @@
 package dk.dsg.BLL.util;
 
 import javafx.scene.control.Alert;
+import javafx.stage.Stage;
 
 public class AlertSystem {
 
-    public static void alertUser(String title, String msg){
+    public static void alertUser(String title,String subMsg, String msg){
         Alert alert = new Alert(Alert.AlertType.WARNING);
+
+        Stage stage = (Stage) alert.getDialogPane().getScene().getWindow();
+        stage.setAlwaysOnTop(true);
+        stage.toFront();
+
         alert.setTitle(title);
-        alert.setHeaderText("Error occured while inserting the movie...");
+        alert.setHeaderText(subMsg);
         alert.setContentText(msg);
         alert.show();
     }
