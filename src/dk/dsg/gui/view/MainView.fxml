@@ -41,7 +41,7 @@
          <Label fx:id="ratingLabel" layoutX="124.0" layoutY="150.0" text="RATING NOT FOUND" AnchorPane.leftAnchor="124.0" AnchorPane.topAnchor="150.0" />
          <Label fx:id="filePathLabel" layoutX="124.0" layoutY="174.0" text="/PATH/NOT/FOUND" AnchorPane.leftAnchor="124.0" AnchorPane.topAnchor="174.0" />
          <Button fx:id="createMovie" layoutX="288.0" layoutY="535.0" mnemonicParsing="false" onAction="#createNewMovie" text="New Movie" AnchorPane.bottomAnchor="40.0" AnchorPane.leftAnchor="288.0" />
-         <Button fx:id="editMovie" layoutX="105.0" layoutY="535.0" mnemonicParsing="false" text="Edit Movie" AnchorPane.bottomAnchor="40.0" AnchorPane.leftAnchor="105.0" />
+         <Button fx:id="editMovie" layoutX="105.0" layoutY="535.0" mnemonicParsing="false" onAction="#editMovie" text="Edit Movie" AnchorPane.bottomAnchor="40.0" AnchorPane.leftAnchor="105.0" />
          <Label layoutX="15.0" layoutY="205.0" text="Categories:" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="194.0">
             <font>
                <Font name="Arial Bold" size="18.0" />
@@ -51,7 +51,7 @@
          <Button fx:id="deleteMovie" layoutX="190.0" layoutY="535.0" mnemonicParsing="false" onAction="#deleteMovie" text="Delete Movie" AnchorPane.bottomAnchor="40.0" AnchorPane.leftAnchor="190.0" />
          <Button fx:id="playMovie" layoutX="18.0" layoutY="535.0" mnemonicParsing="false" onAction="#playMovie" text="Play Movie" AnchorPane.bottomAnchor="40.0" AnchorPane.leftAnchor="18.0" />
          <Button fx:id="createCategory" layoutX="428.0" layoutY="535.0" mnemonicParsing="false" onAction="#createNewCategory" prefHeight="25.0" prefWidth="100.0" text="New Category" AnchorPane.bottomAnchor="40.0" AnchorPane.rightAnchor="312.0" />
-         <TableView fx:id="categoryTable" layoutX="635.0" prefHeight="600.0" prefWidth="191.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <TableView fx:id="categoryTable" layoutX="635.0" prefHeight="600.0" prefWidth="191.0" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
            <columns>
              <TableColumn fx:id="categoryNameTable" prefWidth="191.0" text="Categories" />
            </columns>

@@ -18,6 +18,7 @@ import javafx.stage.Stage;
 import java.io.File;
 import java.net.URL;
 import java.sql.Date;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -38,10 +39,13 @@ public class NewMovieController implements Initializable {
 
     private List<ChoiceBox<String>> choiceboxes;
 
+    private Movie parsedMovie;
+
     public NewMovieController(){
         movieModel = new MovieModel();
         catModel = new CategoryModel();
         choiceboxes = new ArrayList<>();
+        parsedMovie = null;
     }
 
     /***
@@ -91,18 +95,48 @@ public class NewMovieController implements Initializable {
         String title = movieName.getText();
         String path = moviePath.getText();
         String category = movieCategory.getSelectionModel().getSelectedItem();
-        int rating = Integer.parseInt(ratingNumber.getText());
+        int rating = (!ratingNumber.getText().isEmpty()) ? Integer.parseInt(ratingNumber.getText()) : -1;
 
-        if(category == null || title == null || path == null) {
-            Alert alert = new Alert(Alert.AlertType.WARNING);
-            alert.setTitle("Missing arguments");
-            alert.setHeaderText("You are missing some arguments");
-            alert.setContentText("Please remember to either select a movie, or give it a category. A name is automatically found based on the name of the file.");
-            alert.show();
+        if(category == null || title == null || path == null || rating == -1) {
+            alertUser("Missing arguments","Please remember to either select a movie, or give it a category. A name is automatically found based on the name of the file.");
             return;
         }
 
-        Movie movie = new Movie(-1,title,rating,path,new Date(System.currentTimeMillis()));
+        if(rating > 10 || rating < 0) {
+            alertUser("Rating out of bounds", "Only rate movies between the values of 0 and 10. You inserted \"" + rating + "\" which is invalid. Try again");
+            return;
+        }
+
+        try {
+            if(parsedMovie == null){
+                for (Movie m : movieModel.getAllMovies()) {
+                    if (m.getMovieName().equals(title)) {
+                        alertUser("Movie already existing", "A movie with the same name has already been registered. Please make sure this is either a unique movie, and if so, make sure it has a unique name");
+                        return;
+                    }
+                }
+            }else{
+                if(!parsedMovie.getMovieName().equals(title)){
+                    for (Movie m : movieModel.getAllMovies()) {
+                        if (m.getMovieName().equals(title)) {
+                            alertUser("Movie already existing", "A movie with the same name has already been registered. Please make sure this is either a unique movie, and if so, make sure it has a unique name");
+                            return;
+                        }
+                    }
+                }
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        Movie movie;
+
+        if(parsedMovie == null) {
+            movie = new Movie(-1, title, rating, path, new Date(System.currentTimeMillis()));
+        } else {
+            movie = new Movie(parsedMovie.getID(), title, rating, path, new Date(System.currentTimeMillis()));
+        }
 
         ObservableList<Category> cats = catModel.getAllCategories();
         for(ChoiceBox<String> box : choiceboxes){
@@ -119,11 +153,27 @@ public class NewMovieController implements Initializable {
             }
         }
 
-        movieModel.addMovie(movie);
+        if(parsedMovie == null) {
+            movieModel.addMovie(movie);
+        } else {
+            try {
+                movieModel.updateMovie(movie);
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
 
         Stage stage = (Stage) movieSelect.getScene().getWindow();
         stage.close();
 
+    }
+
+    private void alertUser(String title, String msg){
+        Alert alert = new Alert(Alert.AlertType.WARNING);
+        alert.setTitle(title);
+        alert.setHeaderText("Error occured while inserting the movie...");
+        alert.setContentText(msg);
+        alert.show();
     }
 
     /***
@@ -170,6 +220,20 @@ public class NewMovieController implements Initializable {
             AnchorPane root = (AnchorPane) movieCategory.getScene().getRoot();
             root.getChildren().remove(choiceboxes.get(choiceboxes.size() - 1));
             choiceboxes.remove(choiceboxes.size() - 1);
+        }
+    }
+
+    public void insertData(Movie selectedMovie) {
+        parsedMovie = selectedMovie;
+        movieName.setText(parsedMovie.getMovieName());
+        moviePath.setText(parsedMovie.getFilePath());
+        ratingNumber.setText("" + parsedMovie.getRating());
+        movieCategory.getSelectionModel().select(parsedMovie.getCategories().get(0).getCatName());
+        if(parsedMovie.getCategories().size() > 1){
+            for(int i = 1; i < parsedMovie.getCategories().size(); i++){
+                addCategory(null);
+                choiceboxes.get(i-1).getSelectionModel().select(parsedMovie.getCategories().get(i).getCatName());
+            }
         }
     }
 }
