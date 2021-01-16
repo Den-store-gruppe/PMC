@@ -36,13 +36,17 @@ public class MovieDAO {
         ResultSet resultSet = statement.executeQuery(query);
 
         while (resultSet.next()) {
-            movies.add(new Movie(
+            Movie movie = new Movie(
                     resultSet.getInt("id"),
                     resultSet.getString("movieName"),
                     resultSet.getInt("rating"),
                     resultSet.getString("filePath"),
                     resultSet.getDate("lastView")
-            ));
+            );
+
+            movie.addCategories(movieCatDAO.getCategoriesByMovie(movie));
+
+            movies.add(movie);
         }
         connection.close();
         statement.close();

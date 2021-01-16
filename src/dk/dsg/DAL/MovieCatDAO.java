@@ -1,5 +1,7 @@
 package dk.dsg.DAL;
 
+import dk.dsg.BE.Category;
+import dk.dsg.BE.Movie;
 import dk.dsg.BE.MovieCat;
 
 import java.sql.*;
@@ -38,6 +40,31 @@ public class MovieCatDAO {
             e.printStackTrace();
         }
         return allMovieCats;
+    }
+
+    public List<Category> getCategoriesByMovie(Movie movie){
+        ArrayList<Category> tmp = new ArrayList<>();
+        String query = "SELECT Category.catName, Category.id FROM Category, MovieCat WHERE MovieCat.movieId = ? AND MovieCat.categoryId = Category.id";
+
+        try(Connection connection = databaseConnector.getConnection()){
+            PreparedStatement pstmt = connection.prepareStatement(query);
+            pstmt.setInt(1, movie.getID());
+            ResultSet resultSet = pstmt.executeQuery();
+
+            while(resultSet.next()){
+                tmp.add(new Category(
+                        resultSet.getInt("id"),
+                        resultSet.getString("catName")
+                ));
+                System.out.println(tmp.get(tmp.size() - 1).getCatName());
+            }
+
+            return tmp;
+        }catch(SQLException e){
+            e.printStackTrace();
+        }
+
+        return tmp;
     }
 
     /***
