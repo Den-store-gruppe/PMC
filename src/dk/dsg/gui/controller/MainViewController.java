@@ -6,6 +6,7 @@ import dk.dsg.BLL.util.AlertSystem;
 import dk.dsg.gui.model.CategoryModel;
 import dk.dsg.gui.model.MovieCatModel;
 import dk.dsg.gui.model.MovieModel;
+import javafx.beans.Observable;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -66,6 +67,8 @@ public class MainViewController implements Initializable {
     private Movie selectedMovie = null;
     private Category selectedCategory = null;
 
+    private ObservableList<Movie> loadedMovies;
+
     /***
      * Sets up the tableview that contains all of the movies
      * @see TableView
@@ -74,7 +77,8 @@ public class MainViewController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         try {
-            movieTable.setItems(movieModel.getAllMovies());
+            loadedMovies = movieModel.getAllMovies();
+            movieTable.setItems(loadedMovies);
             movieTableName.setCellValueFactory(celldata -> celldata.getValue().movieNameProperty());
             ratingTable.setCellValueFactory(new PropertyValueFactory<>("rating"));
 
@@ -93,7 +97,7 @@ public class MainViewController implements Initializable {
 
             categoryTable.getSelectionModel().selectedItemProperty().addListener((observableValue, oldValue, newValue) -> {
                 selectedCategory = newValue;
-                updateInformation();
+                sortCategory();
             });
 
             if(categoryTable.getItems().size() != 0) {
@@ -110,29 +114,32 @@ public class MainViewController implements Initializable {
 
     }
 
+    private void sortCategory() {
+        ObservableList<Movie> filteredMovies = movieModel.filterMovie(loadedMovies, selectedCategory);
+        if(filteredMovies != null){
+            movieTable.setItems(filteredMovies);
+        }
+    }
+
     private void remindUser() {
         List<String> movieNames = new ArrayList<>();
-        try {
-            List<Movie> movies = movieModel.getAllMovies();
-            for (Movie m : movies){
+        List<Movie> movies = loadedMovies;
+        for (Movie m : movies){
 
-                if(Period.between(LocalDate.now(), m.getLastView().toLocalDate()).getMonths() <= -24 || m.getRating() < 6){
-                    movieNames.add(m.getMovieName());
-                }
-
+            if(Period.between(LocalDate.now(), m.getLastView().toLocalDate()).getMonths() <= -24 || m.getRating() < 6){
+                movieNames.add(m.getMovieName());
             }
 
-            if(movieNames.size() > 0) {
-                String moviesToDelete = "";
-                for(String name : movieNames){
-                    moviesToDelete += name + "\r\n";
-                }
-                AlertSystem.alertUser("Delete movies...", "","Heres a list of movies that you haven't watched in over 2 years, or that you have rated below 6:\n" + moviesToDelete);
-            }
-
-        } catch (SQLException e) {
-            e.printStackTrace();
         }
+
+        if(movieNames.size() > 0) {
+            String moviesToDelete = "";
+            for(String name : movieNames){
+                moviesToDelete += name + "\r\n";
+            }
+            AlertSystem.alertUser("Delete movies...", "","Heres a list of movies that you haven't watched in over 2 years, or that you have rated below 6:\n" + moviesToDelete);
+        }
+
     }
 
     /***
@@ -250,10 +257,10 @@ public class MainViewController implements Initializable {
 
     public void searchMovie(ActionEvent actionEvent) throws SQLException {
         if (searchField.getText() == null || searchField.getText().length() <= 0) {
-            movieTable.setItems(movieModel.getAllMovies());
+            movieTable.setItems(loadedMovies);
         }
         else {
-            ObservableList<Movie> movieSearcher = movieModel.searchMovie(movieModel.getAllMovies(), searchField.getText());
+            ObservableList<Movie> movieSearcher = movieModel.searchMovie(loadedMovies, searchField.getText());
             if (searchField != null) {
                 movieTable.setItems(movieSearcher);
             }

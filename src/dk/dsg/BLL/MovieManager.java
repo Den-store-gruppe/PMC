@@ -1,5 +1,6 @@
 package dk.dsg.BLL;
 
+import dk.dsg.BE.Category;
 import dk.dsg.BE.Movie;
 import dk.dsg.BLL.util.MovieFilter;
 import dk.dsg.DAL.MovieDAO;
@@ -52,5 +53,9 @@ public class MovieManager {
 
     public ObservableList<Movie> searchMovie(ObservableList<Movie> movies, String search) {
         return movieFilter.search(movies, search);
+    }
+
+    public ObservableList<Movie> filterMovie(ObservableList<Movie> movies, Category category) {
+        return movieFilter.filterByCategory(movies, category);
     }
 }

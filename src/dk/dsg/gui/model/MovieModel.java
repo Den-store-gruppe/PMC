@@ -1,5 +1,6 @@
 package dk.dsg.gui.model;
 
+import dk.dsg.BE.Category;
 import dk.dsg.BE.Movie;
 import dk.dsg.BE.MovieCat;
 import dk.dsg.BLL.MovieCatManager;
@@ -67,5 +68,8 @@ public class MovieModel {
 
     public ObservableList<Movie> searchMovie (ObservableList<Movie> movies, String search) {
         return movieManager.searchMovie(movies, search);
+    }
+    public ObservableList<Movie> filterMovie(ObservableList<Movie> movies, Category category){
+        return movieManager.filterMovie(movies, category);
     }
 }
