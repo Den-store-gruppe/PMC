@@ -227,6 +227,21 @@ public class MainViewController implements Initializable {
         }
     }
 
+    public void editMovie(ActionEvent actionEvent) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("../view/NewMovie.fxml"));
+            Stage stage = new Stage();
+            Scene scene = new Scene(loader.load());
+            stage.setScene(scene);
 
+            NewMovieController nmc = loader.getController();
+            nmc.insertData(selectedMovie);
 
+            stage.showAndWait();
+            movieTable.setItems(movieModel.getAllMovies());
+        } catch (IOException | SQLException e) {
+            //TODO: give user the warning
+            e.printStackTrace();
+        }
+    }
 }
