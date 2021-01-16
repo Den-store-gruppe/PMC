@@ -1,5 +1,6 @@
 package dk.dsg.gui.model;
 
+import dk.dsg.BE.Movie;
 import dk.dsg.BE.MovieCat;
 import dk.dsg.BLL.MovieCatManager;
 import javafx.collections.FXCollections;
@@ -28,5 +29,9 @@ public class MovieCatModel {
         movieCatManager.updateMovieCat(movieCat);
         allMovieCats.clear();
         allMovieCats.addAll(movieCatManager.getAllMovieCats());
+    }
+
+    public void deleteMovieCat(Movie movie){
+        movieCatManager.deleteMovieCat(new MovieCat(-1,-1, movie.getID()));
     }
 }

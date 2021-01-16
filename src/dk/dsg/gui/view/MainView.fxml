@@ -47,7 +47,7 @@
                <Font name="Arial Bold" size="18.0" />
             </font>
          </Label>
-         <Label fx:id="filePathLabel1" layoutX="121.0" layoutY="197.0" text="CATEGORIES, NOT, FOUND" AnchorPane.leftAnchor="124.0" AnchorPane.topAnchor="197.0" />
+         <Label fx:id="categoriesLabel" layoutX="121.0" layoutY="197.0" text="CATEGORIES, NOT, FOUND" AnchorPane.leftAnchor="124.0" AnchorPane.topAnchor="197.0" />
          <Button fx:id="deleteMovie" layoutX="190.0" layoutY="535.0" mnemonicParsing="false" onAction="#deleteMovie" text="Delete Movie" AnchorPane.bottomAnchor="40.0" AnchorPane.leftAnchor="190.0" />
          <Button fx:id="playMovie" layoutX="18.0" layoutY="535.0" mnemonicParsing="false" onAction="#playMovie" text="Play Movie" AnchorPane.bottomAnchor="40.0" AnchorPane.leftAnchor="18.0" />
          <Button fx:id="createCategory" layoutX="428.0" layoutY="535.0" mnemonicParsing="false" onAction="#createNewCategory" prefHeight="25.0" prefWidth="100.0" text="New Category" AnchorPane.bottomAnchor="40.0" AnchorPane.rightAnchor="312.0" />

@@ -3,6 +3,7 @@ package dk.dsg.gui.controller;
 import dk.dsg.BE.Category;
 import dk.dsg.BE.Movie;
 import dk.dsg.gui.model.CategoryModel;
+import dk.dsg.gui.model.MovieCatModel;
 import dk.dsg.gui.model.MovieModel;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -31,9 +32,9 @@ import java.util.ResourceBundle;
 public class MainViewController implements Initializable {
 
 
-
     private MovieModel movieModel;
     private CategoryModel categoryModel;
+    private MovieCatModel movieCatModel;
 
     @FXML private TableView<Movie> movieTable;
     @FXML private TableColumn<Movie, String> movieTableName;
@@ -53,6 +54,7 @@ public class MainViewController implements Initializable {
     @FXML private Label dateLabel;
     @FXML private Label ratingLabel;
     @FXML private Label filePathLabel;
+    @FXML private Label categoriesLabel;
 
     public TextField searchField;
 
@@ -112,6 +114,17 @@ public class MainViewController implements Initializable {
             dateLabel.setText(selectedMovie.getLastView().toString());
             filePathLabel.setText(selectedMovie.getFilePath());
 
+            String categories = "";
+            if(selectedMovie.getCategories().size() > 0){
+                for (Category c : selectedMovie.getCategories()) {
+                    categories += c.getCatName().concat(", ");
+                }
+            } else {
+                categories = "No categories recorded";
+            }
+
+            categoriesLabel.setText(categories);
+
             String rating = (selectedMovie.getRating() != -1) ? String.valueOf(selectedMovie.getRating()) : "Not rated yet";
 
             ratingLabel.setText(rating);
@@ -125,6 +138,7 @@ public class MainViewController implements Initializable {
 
     public MainViewController(){
         categoryModel = new CategoryModel();
+        movieCatModel = new MovieCatModel();
         movieModel = new MovieModel();
     }
 
@@ -184,6 +198,7 @@ public class MainViewController implements Initializable {
      */
     public void deleteMovie(ActionEvent actionEvent) {
         if(selectedMovie != null){
+            movieCatModel.deleteMovieCat(selectedMovie);
             movieModel.deleteMovie(selectedMovie);
             try {
                 movieTable.setItems(movieModel.getAllMovies());

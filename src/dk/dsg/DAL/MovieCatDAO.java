@@ -77,12 +77,10 @@ public class MovieCatDAO {
     public void addMovieCat(MovieCat movieCat) {
         String query = "INSERT INTO MovieCat (categoryId, movieId) VALUES (?,?)";
         try (Connection connection = databaseConnector.getConnection()) {
-            System.out.println("connecting and now trying to insert");
             PreparedStatement preparedStatement = connection.prepareStatement(query);
             preparedStatement.setInt(1, movieCat.getCategoryId());
             preparedStatement.setInt(2, movieCat.getMovieId());
             preparedStatement.execute();
-            System.out.println("executed");
         } catch (SQLException e) {
             //TODO: give user the warning
             e.printStackTrace();
@@ -112,10 +110,10 @@ public class MovieCatDAO {
      * @see MovieCat
      */
     public void deleteMovieCat(MovieCat movieCat) {
-        String query = "DELETE from MovieCat WHERE id = ?";
+        String query = "DELETE FROM MovieCat WHERE movieId = ?";
         try(Connection connection = databaseConnector.getConnection()) {
             PreparedStatement preparedStatement = connection.prepareStatement(query);
-            preparedStatement.setInt(1, movieCat.getId());
+            preparedStatement.setInt(1, movieCat.getMovieId());
             preparedStatement.execute();
         } catch (SQLException e) {
             e.printStackTrace();
