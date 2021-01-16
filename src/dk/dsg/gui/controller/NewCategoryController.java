@@ -22,6 +22,10 @@ public class NewCategoryController {
     }
 
 
+    /***
+     * Gets the title from the text field, and creates a new category.
+     * It will alert the user if there is nothing in the title.
+     */
     public void submitCategory(ActionEvent actionEvent) {
         String title = categoryName.getText();
 
@@ -35,6 +39,9 @@ public class NewCategoryController {
 
     }
 
+    /***
+     * Closes the window
+     */
     public void cancelCategory(ActionEvent actionEvent) {
         Stage stage = (Stage) categoryCancel.getScene().getWindow();
         stage.close();
