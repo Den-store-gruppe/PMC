@@ -219,6 +219,10 @@ public class NewMovieController implements Initializable {
         }
     }
 
+    /***
+     * Fills the text fields with the information from the selected movie
+     * Used to edit a movie
+     */
     public void insertData(Movie selectedMovie) {
         parsedMovie = selectedMovie;
         movieName.setText(parsedMovie.getMovieName());

@@ -42,6 +42,11 @@ public class MovieCatDAO {
         return allMovieCats;
     }
 
+    /***
+     * Gives a list filled with categories which belong to a movie
+     * @param movie
+     * @return List with categories
+     */
     public List<Category> getCategoriesByMovie(Movie movie){
         ArrayList<Category> tmp = new ArrayList<>();
         String query = "SELECT Category.catName, Category.id FROM Category, MovieCat WHERE MovieCat.movieId = ? AND MovieCat.categoryId = Category.id";

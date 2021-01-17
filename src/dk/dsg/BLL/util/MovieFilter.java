@@ -29,6 +29,12 @@ public class MovieFilter {
         return movieSearch;
     }
 
+    /***
+     * Filters through the movies by sorting with the categories
+     * @param movies the movies to search through
+     * @param category Sorting by category
+     * @return List of movies belonging to the category
+     */
     public ObservableList<Movie> filterByCategory(ObservableList<Movie> movies, Category category){
         movieSearch.clear();
         for (Movie movie : movies){

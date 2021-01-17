@@ -75,6 +75,7 @@ public class MainViewController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         try {
+            // Fills the right side table with movies from the database
             movieTable.setItems(movieModel.getAllMovies());
             movieTableName.setCellValueFactory(celldata -> celldata.getValue().movieNameProperty());
             ratingTable.setCellValueFactory(new PropertyValueFactory<>("rating"));
@@ -89,6 +90,7 @@ public class MainViewController implements Initializable {
                 updateInformation();
             }
 
+            // Fills the left side table with categories from the database
             categoryTable.setItems(categoryModel.getAllCategories());
             categoryNameTable.setCellValueFactory(celldata -> celldata.getValue().getCatNameProperty());
 
@@ -111,6 +113,9 @@ public class MainViewController implements Initializable {
 
     }
 
+    /***
+     * Sorts the movies by category, using the filterByCategory method in the MovieFilter class.
+     */
     private void sortCategory() {
         try {
             ObservableList<Movie> filteredMovies = movieModel.filterMovie(movieModel.getAllMovies(), selectedCategory);
@@ -122,6 +127,10 @@ public class MainViewController implements Initializable {
         }
     }
 
+    /***
+     * Reminds the user to delete a movie that is older than two years,
+     * and has a rating below 6.
+     */
     private void remindUser() {
         List<String> movieNames = new ArrayList<>();
         try {
@@ -253,6 +262,9 @@ public class MainViewController implements Initializable {
         }
     }
 
+    /***
+     * Deletes a category from the database and the list
+     */
     public void deleteCategory(ActionEvent actionEvent) {
         if(selectedCategory != null) {
             categoryModel.deleteCategory(selectedCategory);
@@ -260,6 +272,9 @@ public class MainViewController implements Initializable {
         }
     }
 
+    /***
+     * Searches through the movies bu using the search method in the MovieFilter class
+     */
     public void searchMovie(ActionEvent actionEvent) throws SQLException {
         if (searchField.getText() == null || searchField.getText().length() <= 0) {
             movieTable.setItems(movieModel.getAllMovies());
@@ -272,6 +287,11 @@ public class MainViewController implements Initializable {
         }
     }
 
+
+    /***
+     * Opening a new window to edit a movie, by selecting a movie from the table first
+     * Uses the insertData method from the NewMovieController to fill the text fields
+     */
     public void editMovie(ActionEvent actionEvent) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("../view/NewMovie.fxml"));
